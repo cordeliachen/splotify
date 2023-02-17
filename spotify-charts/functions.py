@@ -2,6 +2,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import plotly.express as px
 import pandas as pd
+from rich import print
+from tabulate import tabulate
 
 
 scope = "user-library-read"
@@ -54,11 +56,24 @@ def graph_audio_features(input, feature1, feature2=None, feature3=None, plot='hi
     fig.show()
 
 
-results = fetch_data(limit=50)
+def search_uri(query, limit=10, type='track'):
+    results = sp.search(q=query, limit=limit, type=type)
+    table = [["Name", "Album", "Artists", "URI"]]
+    for i in range(limit):
+        song = results['tracks']['items'][i]
 
+        table.append([song['name'], song['album']['name'], [x['name']
+                     for x in song['artists']], song['uri']])
+    print(tabulate(table, headers="firstrow"))
+    return results
+
+# results = fetch_data(limit=50)
+
+
+search_uri("get cool")
 
 # graph_audio_features(results, feature1='energy',
 #                      feature2='loudness', plot='scatterplot', dims=2)
 
-graph_audio_features(results, feature1='energy',
-                     feature2='loudness', feature3='danceability', plot='scatterplot', dims=3)
+# graph_audio_features(results, feature1='energy',
+#                      feature2='loudness', feature3='danceability', plot='scatterplot', dims=3)
