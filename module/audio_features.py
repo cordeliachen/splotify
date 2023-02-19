@@ -7,42 +7,11 @@ from tqdm import tqdm
 
 
 class AudioFeaturesPlot:
-    def __init__(self, tracks, feature1, feature2=None, feature3=None, dims=2):
-        self.f1 = feature1
-        self.f2 = feature2
-        self.f3 = feature3
+    def __init__(self, tracks, features, dims=2):
         self.dims = dims
-        self.df = self.add_data(tracks, dims)
-
-    def add_data(self, tracks, dims):
-        data = []
-
-        for track in tqdm(tracks, desc='Preparing to graph'):
-            track_data = []
-            track_data.append(track['name'])
-            track_data.append(track['artists'][0]['name'])
-            track_data.append(track['album']['name'])
-            track_data.append(track['uri'])
-
-            audio_features = sp.audio_features(track['uri'])[0]
-
-            track_data.append(audio_features[self.f1])
-            if dims > 1:
-                track_data.append(audio_features[self.f2])
-            if dims > 2:
-                track_data.append(audio_features[self.f3])
-            data.append(track_data)
-
-        if dims == 1:
-            df = pd.DataFrame(
-                data, columns=['name', 'artist', 'album', 'uri', self.f1])
-        elif dims == 2:
-            df = pd.DataFrame(
-                data, columns=['name', 'artist', 'album', 'uri', self.f1, self.f2])
-        elif dims == 3:
-            df = pd.DataFrame(
-                data, columns=['name', 'artist', 'album', 'uri', self.f1, self.f2, self.f3])
-        return df
+        self.df = tracks
+        self.add_features(features)
+        self.select_features(features)
 
     def add_features(self, features):
         data = []

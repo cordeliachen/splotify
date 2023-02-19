@@ -1,21 +1,28 @@
 import data
 import audio_features
-from helpers import search_uri
+import category
+from helpers import search_uri, my_uri
 
 
 # search_uri("radiohead", type='playlist')
 
 # search_uri("deco27", type='playlist')
+# my_uri(50)
 
 input = data.Data()
 
-input.add_playlist('spotify:playlist:37i9dQZF1DZ06evO2VxlyE')
-input.add_playlist('spotify:playlist:37i9dQZF1DZ06evO4liOn9')
+input.add_playlist('spotify:playlist:65pRMS3u6EF1ljvDTHTe6B')
+# input.add_playlist('spotify:playlist:37i9dQZF1DZ06evO4liOn9')
 # input.add_album('spotify:album:0JwHz5SSvpYWuuCNbtYZoV')
 
-results = input.get_data()
+results = input.create_df()
 
-afp = audio_features.AudioFeaturesPlot(
-    results, feature1='energy', feature2='loudness', dims=2)
+m = category.CategoryPlot(results)
 
-afp.histogram('energy', color='artist')
+m.pie_chart(type='artist')
+
+# afp = audio_features.AudioFeaturesPlot(
+#     results, ['energy', 'loudness'], dims=1)
+
+
+# afp.histogram('loudness', color='artist')

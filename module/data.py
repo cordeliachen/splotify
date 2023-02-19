@@ -1,5 +1,6 @@
 from __init__ import sp
 from tqdm import tqdm
+import pandas as pd
 
 # Data stores the all the tracks you want to view in tqdm(a single plot
 
@@ -7,7 +8,6 @@ from tqdm import tqdm
 class Data:
     def __init__(self):
         self.data = []
-        pass
 
     def add_track(self, id):
         result = sp.track(id)
@@ -46,3 +46,16 @@ class Data:
 
     def get_data(self):
         return self.data
+
+    def create_df(self):
+        data = []
+
+        for track in tqdm(self.data, desc='Creating DataFrame'):
+            track_data = []
+            track_data.append(track['name'])
+            track_data.append(track['artists'][0]['name'])
+            track_data.append(track['album']['name'])
+            track_data.append(track['uri'])
+            data.append(track_data)
+
+        return pd.DataFrame(data, columns=['name', 'artist', 'album', 'uri'])
