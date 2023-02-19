@@ -35,3 +35,15 @@ def search_uri(query, limit=10, type='track'):
                          ['display_name'], playlist['uri']])
         print(tabulate(table, headers="firstrow"))
     return results
+
+# for getting the uris of personal spotify data i.e. playlists you own
+
+
+def my_uri(limit=10, type='playlist'):
+    if type == 'playlist':
+        results = sp.current_user_playlists()
+        table = [["Name", "URI"]]
+        for i in range(limit):
+            playlist = results['items'][i]
+            table.append([playlist['name'], playlist['uri']])
+        print(tabulate(table, headers="firstrow"))

@@ -16,32 +16,32 @@ class Data:
 
     def add_tracks(self, ids):
         result = []
-        for id in tqdm(ids, desc="Adding tracks"):
+        for id in tqdm(ids, desc='Adding tracks'):
             result.append(self.add_track(id))
         return result
 
     def add_album(self, id):
         result = []
         tracks = sp.album(id)['tracks']['items']
-        for track in tqdm(tracks, desc="Adding album"):
+        for track in tqdm(tracks, desc='Adding album'):
             self.add_track(track['uri'])
             result.append(track)
         return result
 
     def add_albums(self, ids):
-        for id in tqdm(ids, desc="Adding albums"):
+        for id in tqdm(ids, desc='Adding albums'):
             self.add_album(id)
 
     def add_playlist(self, id):
         result = []
         tracks = sp.playlist(id)['tracks']['items']
-        for track in tqdm(tracks, desc="Adding playlist"):
+        for track in tqdm(tracks, desc='Adding playlist'):
             self.add_track(track['track']['uri'])
             result.append(track)
         return result
 
     def add_playlists(self, ids):
-        for id in tqdm(ids, desc="Adding playlists"):
+        for id in tqdm(ids, desc='Adding playlists'):
             self.add_playlist(id)
 
     def get_data(self):
