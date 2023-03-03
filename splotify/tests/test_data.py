@@ -32,12 +32,8 @@ def test_add_tracks():
             "OK Computer",
             "spotify:track:10nyNJ6zNy2YVYLrcwLccB",
         ],
-        [
-            "Creep",
-            "Radiohead",
-            "Pablo Honey",
-            "spotify:track:70LcF31zb1H0PyJoS1Sx1r"
-        ],
+        ["Creep", "Radiohead", "Pablo Honey",
+            "spotify:track:70LcF31zb1H0PyJoS1Sx1r"],
         [
             "High and Dry",
             "Radiohead",

@@ -1,6 +1,7 @@
 from splotify import spotifyapi
 from splotify import data
 from splotify.plots import audiofeatures
+from splotify import helpers
 
 
 def spotify_auth():
@@ -13,16 +14,16 @@ def spotify_auth():
 
 def test_integration():
     sp = spotify_auth()
+
+    id1 = helpers.search_uri(sp, "Reincarnation Apple")[1][3]
+    id2 = helpers.search_uri(sp, "God-ish")[1][3]
+    id3 = helpers.search_uri(sp, "Magical Girl and Chocolate")[1][3]
+    id4 = helpers.search_uri(sp, "Non-breath oblige")[1][3]
+
     d = data.Data(sp)
 
-    d.add_album("spotify:album:5gqdC7ZnKbTJqypdYHr1Kt")
-    d.add_albums(
-        [
-            "spotify:album:5MEXGTej0dxa5MbXZCJJyk",
-            "spotify:album:1zXLavJ8fGLSqPfCc8Z4yG",
-            "spotify:album:6bL5NBdI1WHI7xRQc4NNVw",
-        ]
-    )
+    d.add_track(id1)
+    d.add_tracks([id2, id3, id4])
 
     afp = audiofeatures.AudioFeaturesPlot(
         sp, d.create_df(), ["loudness", "danceability"]
