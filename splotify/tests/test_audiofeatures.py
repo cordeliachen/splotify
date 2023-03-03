@@ -1,3 +1,4 @@
+import pytest
 from splotify.plots import audiofeatures
 from splotify import spotifyapi
 import pandas as pd
@@ -11,8 +12,8 @@ def spotify_auth():
     )
 
 
-def test_add_features():
-    sp = spotify_auth()
+@pytest.fixture
+def track_data():
     data = [
         [
             "Reincarnation Apple",
@@ -20,12 +21,7 @@ def test_add_features():
             "Reincarnation Apple",
             "spotify:track:1O8mA7lbLISvEGUiNFwQnV",
         ],
-        [
-            "God-ish",
-            "PinocchioP",
-            "God-ish",
-            "spotify:track:206UWNKXURTnN4zf9vmXUV"
-        ],
+        ["God-ish", "PinocchioP", "God-ish", "spotify:track:206UWNKXURTnN4zf9vmXUV"],
         [
             "Magical Girl and Chocolate",
             "PinocchioP",
@@ -39,49 +35,29 @@ def test_add_features():
             "spotify:track:5LAec0974S9ZJ4WmNbgRyv",
         ],
     ]
-    df = pd.DataFrame(data, columns=["name", "artist", "album", "uri"])
+    return pd.DataFrame(data, columns=["name", "artist", "album", "uri"])
 
-    afp = audiofeatures.AudioFeaturesPlot(sp, df, ["loudness", "danceability"])
 
-    df["loudness"] = [-4.500, -7.125, -7.107, -4.996]
-    df["danceability"] = [0.662, 0.652, 0.646, 0.606]
+def test_add_features(track_data):
+    sp = spotify_auth()
 
-    assert afp.get_df().equals(df)
+    afp = audiofeatures.AudioFeaturesPlot(sp, track_data, ["loudness", "danceability"])
+
+    track_data["loudness"] = [-4.500, -7.125, -7.107, -4.996]
+    track_data["danceability"] = [0.662, 0.652, 0.646, 0.606]
+
+    assert afp.get_df().equals(track_data)
 
     afp.add_features(["duration_ms"])
-    df["duration_ms"] = [219083, 203760, 187600, 208991]
+    track_data["duration_ms"] = [219083, 203760, 187600, 208991]
 
-    assert afp.get_df().equals(df)
+    assert afp.get_df().equals(track_data)
 
 
-def test_select_features():
+def test_select_features(track_data):
     sp = spotify_auth()
-    data = [
-        [
-            "No Surprises",
-            "Radiohead",
-            "OK Computer",
-            "spotify:track:10nyNJ6zNy2YVYLrcwLccB",
-        ],
-        ["Creep", "Radiohead", "Pablo Honey",
-            "spotify:track:70LcF31zb1H0PyJoS1Sx1r"],
-        [
-            "High and Dry",
-            "Radiohead",
-            "The Bends",
-            "spotify:track:2a1iMaoWQ5MnvLFBDv4qkf",
-        ],
-        [
-            "Karma Police",
-            "Radiohead",
-            "OK Computer",
-            "spotify:track:63OQupATfueTdZMWTxW03A",
-        ],
-    ]
-    df = pd.DataFrame(data, columns=["name", "artist", "album", "uri"])
-
     afp = audiofeatures.AudioFeaturesPlot(
-        sp, df, ["loudness", "danceability", "duration_ms", "energy", "tempo"]
+        sp, track_data, ["loudness", "danceability", "duration_ms", "energy", "tempo"]
     )
 
     afp.select_features(["duration_ms", "energy", "tempo"])

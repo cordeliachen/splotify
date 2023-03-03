@@ -24,8 +24,7 @@ def search_uri(sp, query, limit=10, type="track"):
         for i in range(limit):
             album = results["albums"]["items"][i]
             table.append(
-                [album["name"], [x["name"] for x in album["artists"]],
-                 album["uri"]]
+                [album["name"], [x["name"] for x in album["artists"]], album["uri"]]
             )
         print(tabulate(table, headers="firstrow"))
     elif type == "artist":
@@ -39,8 +38,7 @@ def search_uri(sp, query, limit=10, type="track"):
         for i in range(limit):
             playlist = results["playlists"]["items"][i]
             table.append(
-                [playlist["name"], playlist["owner"]
-                    ["display_name"], playlist["uri"]]
+                [playlist["name"], playlist["owner"]["display_name"], playlist["uri"]]
             )
         print(tabulate(table, headers="firstrow"))
     return table
