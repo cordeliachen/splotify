@@ -32,8 +32,7 @@ def test_add_tracks():
             "OK Computer",
             "spotify:track:10nyNJ6zNy2YVYLrcwLccB",
         ],
-        ["Creep", "Radiohead", "Pablo Honey",
-            "spotify:track:70LcF31zb1H0PyJoS1Sx1r"],
+        ["Creep", "Radiohead", "Pablo Honey", "spotify:track:70LcF31zb1H0PyJoS1Sx1r"],
         [
             "High and Dry",
             "Radiohead",
@@ -47,8 +46,7 @@ def test_add_tracks():
             "spotify:track:63OQupATfueTdZMWTxW03A",
         ],
     ]
-    expected = pd.DataFrame(expected_data, columns=[
-                            "name", "artist", "album", "uri"])
+    expected = pd.DataFrame(expected_data, columns=["name", "artist", "album", "uri"])
 
     assert result.equals(expected)
 
@@ -74,12 +72,7 @@ def test_add_albums():
             "Reincarnation Apple",
             "spotify:track:1O8mA7lbLISvEGUiNFwQnV",
         ],
-        [
-            "God-ish",
-            "PinocchioP",
-            "God-ish",
-            "spotify:track:206UWNKXURTnN4zf9vmXUV"
-        ],
+        ["God-ish", "PinocchioP", "God-ish", "spotify:track:206UWNKXURTnN4zf9vmXUV"],
         [
             "Magical Girl and Chocolate",
             "PinocchioP",
@@ -93,7 +86,6 @@ def test_add_albums():
             "spotify:track:5LAec0974S9ZJ4WmNbgRyv",
         ],
     ]
-    expected = pd.DataFrame(expected_data, columns=[
-                            "name", "artist", "album", "uri"])
+    expected = pd.DataFrame(expected_data, columns=["name", "artist", "album", "uri"])
 
     assert result.equals(expected)

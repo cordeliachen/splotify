@@ -59,6 +59,8 @@ class AudioFeaturesPlot:
         )
         fig.show()
 
+        return fig
+
     def scatter_plot_3d(self, color=None):
         fig = px.scatter_3d(
             self.df,
@@ -80,9 +82,13 @@ class AudioFeaturesPlot:
         )
         fig.show()
 
+        return fig
+
     def histogram(self, feature, color=None):
         fig = px.histogram(self.df, x=feature, color=color)
         fig.show()
+
+        return fig
 
     # def box_plot()
 
