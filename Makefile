@@ -1,10 +1,14 @@
 develop:  ## install dependencies
-	pip install -r requirements.txt
+	python3 -m pip install .'[develop]'
+build:  ## build the python library
+	python3 setup.py build build_ext --inplace 
+install: ## install library
+	python3 -m pip install .
 setup: ## get authorization token needed to run tests
 	python3 splotify/main.py
 test: setup ## run tests with coverage stats
-	pytest --cov=splotify/ splotify/tests/
+	python3 -m pytest --cov=splotify/ splotify/tests/
 format: # autoformat with black
-	black splotify/
+	python3 -m black splotify/
 lint:  ## run static analysis with flake8
-	flake8 splotify/
+	python3 -m flake8 splotify/
