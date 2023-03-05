@@ -47,7 +47,7 @@ class Data:
     def get_data(self):
         return self.data
 
-    def create_df(self):
+    def get_df(self):
         data = []
 
         for track in tqdm(self.data, desc="Creating DataFrame"):

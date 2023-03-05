@@ -23,7 +23,7 @@ def test_add_tracks():
             "spotify:track:63OQupATfueTdZMWTxW03A",
         ]
     )
-    result = d.create_df()
+    result = d.get_df()
 
     expected_data = [
         [
@@ -63,7 +63,7 @@ def test_add_albums():
             "spotify:album:6bL5NBdI1WHI7xRQc4NNVw",
         ]
     )
-    result = d.create_df()
+    result = d.get_df()
     print(result)
     expected_data = [
         [
