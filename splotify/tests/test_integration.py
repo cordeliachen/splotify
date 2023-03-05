@@ -2,7 +2,6 @@ from splotify import spotifyapi
 from splotify import data
 from splotify.plots import audiofeatures
 from splotify import helpers
-from splotify.tests.conftest import loudness_data, danceability_data
 
 
 def spotify_auth():

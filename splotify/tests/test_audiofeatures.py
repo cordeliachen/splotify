@@ -1,12 +1,3 @@
-from splotify.tests.conftest import (
-    track_data,
-    loudness_data,
-    danceability_data,
-    energy_data,
-    loudness_data,
-    danceability_data,
-    energy_data,
-)
 from splotify import spotifyapi
 
 
