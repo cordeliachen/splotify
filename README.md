@@ -2,6 +2,8 @@
 
 A python library for easily graphing and visualizing your Spotify data.
 
+[![Build Status](https://github.com/cordeliachen/splotify/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/cordeliachen/splotify/actions?query=workflow%3A%22Build+Status%22)
+[![codecov](https://codecov.io/gh/cordeliachen/splotify/branch/main/graph/badge.svg)](https://codecov.io/gh/cordeliachen/splotify)
 ![](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![](https://img.shields.io/github/issues/cordeliachen/splotify)
 
