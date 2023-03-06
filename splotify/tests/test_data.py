@@ -1,91 +1,60 @@
-from splotify import spotifyapi
 from splotify import data
 import pandas as pd
+from unittest.mock import patch
 
 
-def spotify_auth():
-    return spotifyapi.get_sp(
-        "234645624be5451eb959f0af3d9e00ac",
-        "a1425a973e8d4574a0dfbd3c9e20438f",
-        "https://localhost:8888/callback",
-    )
+@patch("splotify.spotifyapi.SpotifyApi")
+def test_add_tracks(mock_sp, raw_track_data, track_data):
+    mock_sp.track.side_effect = raw_track_data
+    d = data.Data(mock_sp)
 
-
-def test_add_tracks():
-    sp = spotify_auth()
-    d = data.Data(sp)
-
-    d.add_track("spotify:track:10nyNJ6zNy2YVYLrcwLccB")
+    d.add_track("spotify:track:71or1G6CbfIttRDnBnTTAL")
     d.add_tracks(
         [
-            "spotify:track:70LcF31zb1H0PyJoS1Sx1r",
-            "spotify:track:2a1iMaoWQ5MnvLFBDv4qkf",
+            "spotify:track:17OqI90oTFZ3J8PVu6j07V",
+            "spotify:track:1PtJclc46wTk367PlsU6Uj",
+            "spotify:track:7rWgGyRK7RAqAAXy4bLft9",
+            "spotify:track:4IKF9BDHZALfCXYXdS0koQ",
+            "spotify:track:2HPB3px8MJZRMfu1L65Z41",
+            "spotify:track:3R47KOuGuGvmoeQqbODPa3",
+            "spotify:track:762B4bOcXF7I2Y8UlKTyTy",
+            "spotify:track:0mb5Q9w5GJKU7HClkEzHpy",
+            "spotify:track:4zoWdR02nRwK8NWqpCM151",
+            "spotify:track:35iCSlFxyiawRBUOtQAkeT",
+            "spotify:track:2TyQF1DcQ8k2cLjiweqQyG",
+            "spotify:track:3vkQ5DAB1qQMYO4Mr9zJN6",
+            "spotify:track:7c378mlmubSu7NGkLFa4sN",
+            "spotify:track:6LgJvl0Xdtc73RJ1mmpotq",
+            "spotify:track:2CVV8PtUYYsux8XOzWkCP0",
+            "spotify:track:0z1o5L7HJx562xZSATcIpY",
+            "spotify:track:2fuYa3Lx06QQJAm0MjztKr",
             "spotify:track:63OQupATfueTdZMWTxW03A",
+            "spotify:track:6wnmRxEbwUK7WLyUtiRuT7",
+            "spotify:track:0gTRROuntlrPQ64W3J2Etv",
+            "spotify:track:2PDQReEXBViVwkrbQ34vd7",
+            "spotify:track:10nyNJ6zNy2YVYLrcwLccB",
+            "spotify:track:14xj58ZexBaEaHARb11Cqs",
+            "spotify:track:1UuaWKypSkIHxFZD03zw4m",
         ]
     )
     result = d.get_df()
 
-    expected_data = [
-        [
-            "No Surprises",
-            "Radiohead",
-            "OK Computer",
-            "spotify:track:10nyNJ6zNy2YVYLrcwLccB",
-        ],
-        ["Creep", "Radiohead", "Pablo Honey", "spotify:track:70LcF31zb1H0PyJoS1Sx1r"],
-        [
-            "High and Dry",
-            "Radiohead",
-            "The Bends",
-            "spotify:track:2a1iMaoWQ5MnvLFBDv4qkf",
-        ],
-        [
-            "Karma Police",
-            "Radiohead",
-            "OK Computer",
-            "spotify:track:63OQupATfueTdZMWTxW03A",
-        ],
-    ]
-    expected = pd.DataFrame(expected_data, columns=["name", "artist", "album", "uri"])
+    expected = pd.DataFrame(track_data, columns=["name", "artist", "album", "uri"])
 
     assert result.equals(expected)
 
 
-def test_add_albums():
-    sp = spotify_auth()
-    d = data.Data(sp)
+@patch("splotify.spotifyapi.SpotifyApi")
+def test_add_albums(mock_sp, raw_album_data, raw_track_data, track_data):
+    mock_sp.album.side_effect = raw_album_data
+    mock_sp.track.side_effect = raw_track_data
+    d = data.Data(mock_sp)
 
-    d.add_album("spotify:album:5gqdC7ZnKbTJqypdYHr1Kt")
     d.add_albums(
-        [
-            "spotify:album:5MEXGTej0dxa5MbXZCJJyk",
-            "spotify:album:1zXLavJ8fGLSqPfCc8Z4yG",
-            "spotify:album:6bL5NBdI1WHI7xRQc4NNVw",
-        ]
+        ["spotify:album:7iLuHJkrb9KHPkMgddYigh", "spotify:album:6dVIqQ8qmQ5GBnJ9shOYGE"]
     )
     result = d.get_df()
-    print(result)
-    expected_data = [
-        [
-            "Reincarnation Apple",
-            "PinocchioP",
-            "Reincarnation Apple",
-            "spotify:track:1O8mA7lbLISvEGUiNFwQnV",
-        ],
-        ["God-ish", "PinocchioP", "God-ish", "spotify:track:206UWNKXURTnN4zf9vmXUV"],
-        [
-            "Magical Girl and Chocolate",
-            "PinocchioP",
-            "Magical Girl and Chocolate",
-            "spotify:track:12shJ1oIZnCG5ZZD8HjQVi",
-        ],
-        [
-            "Non-breath oblige",
-            "PinocchioP",
-            "Non-breath oblige",
-            "spotify:track:5LAec0974S9ZJ4WmNbgRyv",
-        ],
-    ]
-    expected = pd.DataFrame(expected_data, columns=["name", "artist", "album", "uri"])
+
+    expected = pd.DataFrame(track_data, columns=["name", "artist", "album", "uri"])
 
     assert result.equals(expected)

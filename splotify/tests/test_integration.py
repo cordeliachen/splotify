@@ -1,28 +1,34 @@
-from splotify import spotifyapi
 from splotify import data
 from splotify.plots import audiofeatures
 from splotify import helpers
+from unittest.mock import patch
 
 
-def spotify_auth():
-    return spotifyapi.get_sp(
-        "234645624be5451eb959f0af3d9e00ac",
-        "a1425a973e8d4574a0dfbd3c9e20438f",
-        "https://localhost:8888/callback",
-    )
+@patch("splotify.spotifyapi.SpotifyApi")
+def test_integration(
+    mock_sp,
+    raw_search_data,
+    raw_album_data,
+    raw_track_data,
+    raw_af_data,
+    loudness_data,
+    danceability_data,
+):
+    mock_sp.seach.return_value = raw_search_data[1]
+    mock_sp.album.side_effect = raw_album_data
+    mock_sp.track.sife_effect = raw_track_data
+    mock_sp.audio_features.side_effect = raw_af_data
 
+    d = data.Data(mock_sp)
 
-def test_integration(loudness_data, danceability_data):
-    sp = spotify_auth()
-
-    d = data.Data(sp)
-
-    id1 = helpers.search_uri(sp, "Voulez-Vous", limit=1, type="album")[1][2]
-    id2 = helpers.search_uri(sp, "OK Computer", limit=1, type="album")[1][2]
+    id1 = "spotify:album:7iLuHJkrb9KHPkMgddYigh"
+    id2 = helpers.search_id(mock_sp, "OK Computer", limit=1, type="album")[1][2]
 
     d.add_albums([id1, id2])
 
-    afp = audiofeatures.AudioFeaturesPlot(sp, d.get_df(), ["loudness", "danceability"])
+    afp = audiofeatures.AudioFeaturesPlot(
+        mock_sp, d.get_df(), ["loudness", "danceability"]
+    )
 
     df = d.get_df()
 

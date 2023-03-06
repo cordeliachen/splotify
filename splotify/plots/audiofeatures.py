@@ -15,9 +15,9 @@ class AudioFeaturesPlot:
 
     def add_features(self, features):
         data = []
-        for uri in tqdm(self.df["uri"].values, desc="Adding features"):
+        for id in tqdm(self.df["uri"].values, desc="Adding features"):
             track_data = []
-            audio_features = self.sp.audio_features(uri)[0]
+            audio_features = self.sp.audio_features(id)[0]
             for feature in features:
                 track_data.append(audio_features[feature])
             data.append(track_data)

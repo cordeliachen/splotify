@@ -6,7 +6,7 @@ install: ## install library
 	python3 -m pip install .
 setup: ## get authorization token needed to run tests
 	python3 splotify/main.py
-test: setup ## run tests with coverage stats
+test: ## run tests with coverage stats
 	python3 -m pytest --cov=splotify/ splotify/tests/
 format: # autoformat with black
 	python3 -m black splotify/
