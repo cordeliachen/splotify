@@ -4,8 +4,8 @@ from tabulate import tabulate
 # i.e. tracks, albums, artists, and public playlists
 
 
-def search_uri(sp, query, limit=10, type="track"):
-    results = sp.search(q=query, limit=limit, type=type)
+def search_id(sp, query, limit=10, type="track"):
+    results = sp.search(query, limit, type)
     if type == "track":
         table = [["Name", "Album", "Artists", "URI"]]
         for i in range(limit):
@@ -47,7 +47,7 @@ def search_uri(sp, query, limit=10, type="track"):
 # for getting the uris of personal spotify data i.e. playlists you own
 
 
-def my_uri(sp, limit=10, type="playlist"):
+def my_id(sp, limit=10, type="playlist"):
     if type == "playlist":
         results = sp.current_user_playlists()
         table = [["Name", "URI"]]

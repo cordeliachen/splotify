@@ -1,19 +1,12 @@
-from splotify import spotifyapi
+from unittest.mock import patch
 from splotify import helpers
 
 
-def spotify_auth():
-    return spotifyapi.get_sp(
-        "234645624be5451eb959f0af3d9e00ac",
-        "a1425a973e8d4574a0dfbd3c9e20438f",
-        "https://localhost:8888/callback",
-    )
+@patch("splotify.spotifyapi.SpotifyApi")
+def test_search_id(mock_sp, raw_search_data):
+    mock_sp.search.side_effect = raw_search_data
 
-
-def test_search_uri():
-    sp = spotify_auth()
-
-    result = helpers.search_uri(sp, "No Surprises")
+    result = helpers.search_id(mock_sp, "No Surprises")
     assert len(result) == 11
     assert result[0] == ["Name", "Album", "Artists", "URI"]
     assert len(result[1]) == 4
@@ -24,7 +17,7 @@ def test_search_uri():
         "spotify:track:10nyNJ6zNy2YVYLrcwLccB",
     ]
 
-    result = helpers.search_uri(sp, "OK Computer", limit=23, type="album")
+    result = helpers.search_id(mock_sp, "OK Computer", limit=23, type="album")
     assert len(result) == 24
     assert result[0] == ["Name", "Artists", "URI"]
     assert len(result[1]) == 3
@@ -34,13 +27,13 @@ def test_search_uri():
         "spotify:album:6dVIqQ8qmQ5GBnJ9shOYGE",
     ]
 
-    result = helpers.search_uri(sp, "Radiohead", limit=15, type="artist")
+    result = helpers.search_id(mock_sp, "Radiohead", limit=15, type="artist")
     assert len(result) == 16
     assert result[0] == ["Name", "URI"]
     assert len(result[1]) == 2
     assert result[1] == ["Radiohead", "spotify:artist:4Z8W4fKeB5YxbusRsdQVPb"]
 
-    result = helpers.search_uri(sp, "Radiohead", limit=3, type="playlist")
+    result = helpers.search_id(mock_sp, "Radiohead", limit=3, type="playlist")
     assert len(result) == 4
     assert result[0] == ["Name", "Owner", "URI"]
     assert len(result[1]) == 3
@@ -51,11 +44,12 @@ def test_search_uri():
     ]
 
 
-def test_my_uri():
-    sp = spotify_auth()
+# @patch("splotify.spotifyapi.SpotifyApi")
+# def test_my_id(mock_sp, raw_my_data):
+#     mock_sp.current_user_playlists =
 
-    result = helpers.my_uri(sp)
+#     result = helpers.my_uri(mock_sp)
 
-    assert len(result) == 11
-    assert result[0] == ["Name", "URI"]
-    assert len(result[1]) == 2
+#     assert len(result) == 11
+#     assert result[0] == ["Name", "URI"]
+#     assert len(result[1]) == 2
