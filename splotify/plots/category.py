@@ -13,6 +13,7 @@ class CategoryPlot:
         grouped_df.columns = [type, "count"]
         fig = px.bar(grouped_df, x=type, y="count")
         fig.show()
+        return fig
 
     def pie_chart(self, type="album"):
         grouped_df = self.df[type].value_counts()
@@ -20,3 +21,4 @@ class CategoryPlot:
         grouped_df.columns = [type, "count"]
         fig = px.pie(grouped_df, values="count", names=type)
         fig.show()
+        return fig

@@ -2,7 +2,7 @@ import plotly.express as px
 import pandas as pd
 from tqdm import tqdm
 
-# Generate plots to view the audio features of tracks
+# Generate plots to view the audio features of a group of tracks
 
 
 class AudioFeaturesPlot:
