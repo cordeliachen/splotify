@@ -6,8 +6,7 @@ from tqdm import tqdm
 
 
 class AudioFeaturesPlot:
-    def __init__(self, sp, tracks, features, dims=2):
-        self.dims = dims
+    def __init__(self, sp, tracks, features):
         self.df = tracks
         self.sp = sp
         self.add_features(features)
@@ -84,12 +83,76 @@ class AudioFeaturesPlot:
 
         return fig
 
+    def scatter_plot_2d_average(self, groupby="album"):
+        avg_df = self.df.groupby(groupby, as_index=False).mean()
+
+        fig = px.scatter(
+            avg_df,
+            x=self.f1,
+            y=self.f2,
+            color=groupby,
+            custom_data=[groupby],
+        )
+
+        fig.update_traces(
+            hovertemplate="<br>".join(
+                [
+                    groupby + ": %{customdata[0]}",
+                ]
+            )
+        )
+        fig.show()
+
+        return fig
+
+    def scatter_plot_3d_average(self, groupby="album"):
+        avg_df = self.df.groupby(groupby, as_index=False).mean()
+
+        fig = px.scatter_3d(
+            avg_df,
+            x=self.f1,
+            y=self.f2,
+            z=self.f3,
+            color=groupby,
+            custom_data=[groupby],
+        )
+
+        fig.update_traces(
+            hovertemplate="<br>".join(
+                [
+                    groupby + ": %{customdata[0]}",
+                ]
+            )
+        )
+        fig.show()
+
+        return fig
+
     def histogram(self, feature, color=None):
         fig = px.histogram(self.df, x=feature, color=color)
         fig.show()
 
         return fig
 
-    # def box_plot()
+    def box_plot(self, feature, groupby=None):
+        fig = px.box(
+            self.df,
+            x=groupby,
+            y=feature,
+            color=groupby,
+            points="all",
+            custom_data=["name", "artist", "album"],
+        )
 
-    # def scatter_plot_2d_average(type='album'):
+        fig.update_traces(
+            hovertemplate="<br>".join(
+                [
+                    "name: %{customdata[0]}",
+                    "artist: %{customdata[1]}",
+                    "album: %{customdata[2]}",
+                ]
+            )
+        )
+        fig.show()
+
+        return fig
