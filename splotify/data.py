@@ -44,7 +44,7 @@ class Data:
         for id in tqdm(ids, desc="Adding playlists"):
             self.add_playlist(id)
 
-    def get_df(self):
+    def get_data(self):
         data = []
 
         for track in tqdm(self.data, desc="Creating DataFrame"):
