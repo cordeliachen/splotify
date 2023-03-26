@@ -2,6 +2,12 @@ from splotify import data
 import pandas as pd
 from splotify.tests import sp
 import pytest
+import os
+
+
+@pytest.fixture(scope="module")
+def vcr_cassette_dir(request):
+    return os.path.join("splotify/tests/cassettes", request.module.__name__)
 
 
 @pytest.mark.vcr()
