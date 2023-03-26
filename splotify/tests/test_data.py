@@ -43,7 +43,7 @@ def test_add_tracks(track_data):
             "spotify:track:1UuaWKypSkIHxFZD03zw4m",
         ]
     )
-    result = d.get_df()
+    result = d.get_data()
 
     expected = pd.DataFrame(track_data, columns=["name", "artist", "album", "uri"])
 
@@ -57,7 +57,7 @@ def test_add_albums(track_data):
     d.add_albums(
         ["spotify:album:7iLuHJkrb9KHPkMgddYigh", "spotify:album:6dVIqQ8qmQ5GBnJ9shOYGE"]
     )
-    result = d.get_df()
+    result = d.get_data()
 
     expected = pd.DataFrame(track_data, columns=["name", "artist", "album", "uri"])
 
@@ -75,6 +75,6 @@ def test_add_playlists():
         ]
     )
 
-    result = d.get_df()
+    result = d.get_data()
 
     assert len(result.index) == 100
