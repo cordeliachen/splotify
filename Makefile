@@ -12,3 +12,7 @@ format: # autoformat with black
 	python3 -m black splotify/
 lint:  ## run static analysis with flake8
 	python3 -m flake8 splotify/
+minor: ## bump minor version
+	bump2version minor
+major: ## bump major version
+	bump2version major
