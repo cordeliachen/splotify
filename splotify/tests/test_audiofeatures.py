@@ -1,74 +1,61 @@
-from unittest.mock import patch
 from splotify.plots import audiofeatures
+from splotify.tests import sp
+import pytest
 
 
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_add_features(
-    mock_sp, raw_af_data, track_data, loudness_data, danceability_data, energy_data
-):
-    mock_sp.audio_features.side_effect = raw_af_data
-
-    afp = audiofeatures.AudioFeaturesPlot(
-        mock_sp, track_data, ["loudness", "danceability"]
+@pytest.fixture
+def afp(track_data):
+    return audiofeatures.AudioFeaturesPlot(
+        sp, track_data, ["loudness", "danceability", "energy"]
     )
 
-    track_data["loudness"] = loudness_data
-    track_data["danceability"] = danceability_data
 
-    assert afp.get_df().equals(track_data)
+@pytest.mark.vcr()
+def test_select_features(afp):
+    assert afp.get_features() == ["loudness", "danceability", "energy"]
 
-    mock_sp.audio_features.side_effect = raw_af_data
+    afp.select_features(["speechiness", "tempo", "key"])
 
-    afp.add_features(["energy"])
-    track_data["energy"] = energy_data
-
-    print(afp.get_df())
-    print(track_data)
-
-    assert afp.get_df().equals(track_data)
+    assert afp.get_features() == ["speechiness", "tempo", "key"]
 
 
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_select_features(mock_sp, raw_af_data, track_data):
-    mock_sp.audio_features.side_effect = raw_af_data
-    afp = audiofeatures.AudioFeaturesPlot(
-        mock_sp,
-        track_data,
-        ["loudness", "danceability", "duration_ms", "energy", "tempo"],
-    )
-
-    afp.select_features(["duration_ms", "energy", "tempo"])
-
-    assert afp.get_features() == ["duration_ms", "energy", "tempo"]
-
-
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_scatter_plot_2d(mock_sp, raw_af_data, track_data):
-    mock_sp.audio_features.side_effect = raw_af_data
-    afp = audiofeatures.AudioFeaturesPlot(
-        mock_sp, track_data, ["loudness", "danceability"]
-    )
-
+@pytest.mark.vcr()
+def test_scatter_plot_2d(afp):
     fig = afp.scatter_plot_2d(color="album")
 
     assert fig is not None
 
 
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_scatter_plot_3d(mock_sp, raw_af_data, track_data):
-    mock_sp.audio_features.side_effect = raw_af_data
-    afp = audiofeatures.AudioFeaturesPlot(
-        mock_sp, track_data, ["loudness", "danceability", "energy"]
-    )
+@pytest.mark.vcr()
+def test_scatter_plot_3d(afp):
     fig = afp.scatter_plot_3d(color="album")
+
     assert fig is not None
 
 
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_histogram(mock_sp, raw_af_data, track_data):
-    mock_sp.audio_features.side_effect = raw_af_data
-    afp = audiofeatures.AudioFeaturesPlot(
-        mock_sp, track_data, ["loudness", "danceability", "energy"]
-    )
+@pytest.mark.vcr()
+def test_scatter_plot_2d_average(afp):
+    fig = afp.scatter_plot_2d_average(groupby="artist")
+
+    assert fig is not None
+
+
+@pytest.mark.vcr()
+def test_scatter_plot_3d_average(afp):
+    fig = afp.scatter_plot_3d_average(groupby="artist")
+
+    assert fig is not None
+
+
+@pytest.mark.vcr()
+def test_histogram(afp):
     fig = afp.histogram(feature="danceability", color="artist")
+
+    assert fig is not None
+
+
+@pytest.mark.vcr()
+def test_box_plot(afp):
+    fig = afp.box_plot(feature="danceability", groupby="artist")
+
     assert fig is not None

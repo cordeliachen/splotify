@@ -44,9 +44,6 @@ class Data:
         for id in tqdm(ids, desc="Adding playlists"):
             self.add_playlist(id)
 
-    def get_data(self):
-        return self.data
-
     def get_df(self):
         data = []
 
