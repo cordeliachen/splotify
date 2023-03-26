@@ -62,3 +62,6 @@ max-line-length=88
 exclude=[
     'splotify/tests/conftest.py'
 ]
+
+[tool.check-manifest]
+ignore = [".vscode/settings.json"]
