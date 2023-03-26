@@ -32,10 +32,10 @@ Install the library by running:
 Here is an example analyzing Spotify's "This is Radiohead" playlist:
 
 ```
-import spotifyapi
-import data
-import plots.audiofeatures as af
-import plots.category as c
+import splotify.spotifyapi as spotifyapi
+import splotify.data as data
+import splotify.plots.audiofeatures as af
+import splotify.plots.category as c
 
 sp = spotifyapi.SpotifyApi(
     "234645624be5451eb959f0af3d9e00ac",
