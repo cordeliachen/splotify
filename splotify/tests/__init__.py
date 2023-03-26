@@ -5,3 +5,5 @@ sp = spotifyapi.SpotifyApi(
     "CLIENT SECRET",
     "CALLBACK URI",
 )
+
+sp.sp._auth = "whooo"
