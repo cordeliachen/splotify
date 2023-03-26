@@ -11,7 +11,7 @@ name = "splotify"
 authors = [{name = "Cordelia Chen", email = "liachen2002@gmail.com"}]
 description="A python library for easily graphing and visualizing your Spotify data."
 readme = "README.md"
-version = "0.0.1"
+version = "0.1.0"
 requires-python = ">=3.7"
 
 dependencies = [
@@ -44,6 +44,7 @@ repository = "https://github.com/cordeliachen/splotify"
 [project.optional-dependencies]
 develop = [
     "black>=23.1.0",
+    "bump2version>=1.0.0",
     "flake8>=6.0.0",
     "flake8-pyproject",
     "pytest>=7.2.1",
