@@ -45,6 +45,7 @@ repository = "https://github.com/cordeliachen/splotify"
 develop = [
     "black>=23.1.0",
     "bump2version>=1.0.0",
+    "check-manifest",
     "flake8>=6.0.0",
     "flake8-pyproject",
     "pytest>=7.2.1",
