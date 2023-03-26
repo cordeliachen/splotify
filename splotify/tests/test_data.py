@@ -1,12 +1,12 @@
 from splotify import data
 import pandas as pd
-from unittest.mock import patch
+from splotify.tests import sp
+import pytest
 
 
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_add_tracks(mock_sp, raw_track_data, track_data):
-    mock_sp.track.side_effect = raw_track_data
-    d = data.Data(mock_sp)
+@pytest.mark.vcr()
+def test_add_tracks(track_data):
+    d = data.Data(sp)
 
     d.add_track("spotify:track:71or1G6CbfIttRDnBnTTAL")
     d.add_tracks(
@@ -44,11 +44,9 @@ def test_add_tracks(mock_sp, raw_track_data, track_data):
     assert result.equals(expected)
 
 
-@patch("splotify.spotifyapi.SpotifyApi")
-def test_add_albums(mock_sp, raw_album_data, raw_track_data, track_data):
-    mock_sp.album.side_effect = raw_album_data
-    mock_sp.track.side_effect = raw_track_data
-    d = data.Data(mock_sp)
+@pytest.mark.vcr()
+def test_add_albums(track_data):
+    d = data.Data(sp)
 
     d.add_albums(
         ["spotify:album:7iLuHJkrb9KHPkMgddYigh", "spotify:album:6dVIqQ8qmQ5GBnJ9shOYGE"]
@@ -58,3 +56,19 @@ def test_add_albums(mock_sp, raw_album_data, raw_track_data, track_data):
     expected = pd.DataFrame(track_data, columns=["name", "artist", "album", "uri"])
 
     assert result.equals(expected)
+
+
+@pytest.mark.vcr()
+def test_add_playlists():
+    d = data.Data(sp)
+
+    d.add_playlists(
+        [
+            "spotify:playlist:37i9dQZF1DZ06evO2VxlyE",
+            "spotify:playlist:37i9dQZF1DZ06evO3v7wbM",
+        ]
+    )
+
+    result = d.get_df()
+
+    assert len(result.index) == 100

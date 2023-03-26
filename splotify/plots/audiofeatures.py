@@ -9,16 +9,29 @@ class AudioFeaturesPlot:
     def __init__(self, sp, tracks, features):
         self.df = tracks
         self.sp = sp
-        self.add_features(features)
+        self.add_features()
         self.select_features(features)
 
-    def add_features(self, features):
+    def add_features(self):
         data = []
         for id in tqdm(self.df["uri"].values, desc="Adding features"):
-            track_data = []
             audio_features = self.sp.audio_features(id)[0]
-            for feature in features:
-                track_data.append(audio_features[feature])
+            features = [
+                "acousticness",
+                "danceability",
+                "duration_ms",
+                "energy",
+                "instrumentalness",
+                "key",
+                "liveness",
+                "loudness",
+                "mode",
+                "speechiness",
+                "tempo",
+                "time_signature",
+                "valence",
+            ]
+            track_data = [audio_features.get(feature) for feature in features]
             data.append(track_data)
         fs = pd.DataFrame(data, columns=features)
         self.df = pd.concat([self.df, fs], axis=1)
@@ -26,14 +39,18 @@ class AudioFeaturesPlot:
     def select_features(self, features):
         if len(features) > 0:
             self.f1 = features[0]
-            print(len(features))
+        else:
+            self.f1 = None
+
         if len(features) > 1:
             self.f2 = features[1]
+        else:
+            self.f2 = None
+
         if len(features) > 2:
             self.f3 = features[2]
-
-    def get_df(self):
-        return self.df
+        else:
+            self.f3 = None
 
     def get_features(self):
         return [self.f1, self.f2, self.f3]
