@@ -31,7 +31,7 @@ Install the library by running:
 
 Here is an example analyzing Spotify's "This is Radiohead" playlist:
 
-```
+```python
 import splotify.spotifyapi as spotifyapi
 import splotify.data as data
 import splotify.plots.audiofeatures as af
