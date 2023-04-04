@@ -1,4 +1,4 @@
-Thank you for your interest in contributing to splotify!!
+Thank you for your interest in contributing to Splotify!!
 
 ## Prerequisites
 

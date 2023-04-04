@@ -1,4 +1,12 @@
 # TODO: call Data.get_data() during __init__.
+
+"""`AudioFeaturesPlot` class.
+
+This module contains the `AudioFeaturesPlot` class that plots the audio
+features of your selected tracks.
+
+"""
+
 import plotly.express as px
 import pandas as pd
 from tqdm import tqdm
@@ -7,23 +15,36 @@ from tqdm import tqdm
 class AudioFeaturesPlot:
     """Object to plot the audio features of a group of tracks.
 
-    Supports 2D and 3D scatter plots, histograms, and box plots.
+    Supports 2D and 3D scatter plots, histograms, and box plots. The supported
+    features are:
+
+    "acousticness",
+    "danceability",
+    "duration_ms",
+    "energy",
+    "instrumentalness",
+    "key",
+    "liveness",
+    "loudness",
+    "mode",
+    "speechiness",
+    "tempo",
+    "time_signature",
+    "valence"
+
+    These features are explained further in the `Spotify Web API documentation <https://developer.spotify.com/documentation/web-api/reference/get-audio-features>`_.
+
+    Args:
+        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
+        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by
+            from calling Data.get_data()
+        features(:obj:`list` of :obj:`str`): The list of audio features
+            that you want to plot. If len(features) > 3, only the first 3
+            features in the list will be selected.
 
     """
 
     def __init__(self, sp, tracks, features):
-        """Initializes an `AudioFeaturesPlot` object to plot the audio features
-        of a group of tracks.
-
-        Args:
-            sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
-            tracks (pd.DataFrame): A Pandas Dataframe, preferably obtained by
-                from calling Data.get_data()
-            features(:obj:`list` of :obj:`str`): The list of audio features
-                that you want to plot. If len(features) > 3, only the first 3
-                features in the list will be selected.
-
-        """
         self.df = tracks
         self.sp = sp
         self.add_features()

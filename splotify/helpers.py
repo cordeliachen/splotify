@@ -5,7 +5,6 @@ artists, and playlists.
 
 """
 
-
 from tabulate import tabulate
 
 

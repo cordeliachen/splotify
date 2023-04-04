@@ -1,4 +1,12 @@
 # TODO: call Data.get_data() during __init__.
+
+"""`CategoryPlot` class.
+
+This module contains the `CategoryPlot` class that plots the categories of your
+selected tracks.
+
+"""
+
 import plotly.express as px
 
 
@@ -8,17 +16,13 @@ class CategoryPlot:
     Supports bar charts and pie charts. Good for looking at the composition of
     playlists (i.e. how many songs are from each album/artist).
 
+    Args:
+        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by
+            from calling Data.get_data()
+
     """
 
     def __init__(self, tracks):
-        """Initializes an `CategoryPlot` object to plot the categories of a
-        group of tracks.
-
-        Args:
-            tracks (pd.DataFrame): A Pandas Dataframe, preferably obtained by
-                from calling Data.get_data()
-
-        """
         self.df = tracks
 
     def bar_chart(self, groupby="album"):

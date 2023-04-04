@@ -1,22 +1,25 @@
+"""`Data` class.
+
+This module contains the `Data` class that stores the tracks you want to plot.
+
+"""
+
 from tqdm import tqdm
 import pandas as pd
 
 
 class Data:
-    """Object to store the tracks you want to view.
+    """Object to store the tracks you want to plot.
 
     Add all the tracks you want to view together in a single plot to a `Data`
     instance.
 
+    Args:
+        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
+
     """
 
     def __init__(self, sp):
-        """Initializes a `Data` object to store the tracks you want to view.
-
-        Args:
-            sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
-
-        """
         self.data = []
         self.sp = sp
 
@@ -24,11 +27,8 @@ class Data:
         """Adds a single track to a `Data` instance.
 
         Args:
-            id (str): The URI of the track you want to add. Supports the
-            following forms:
-            Spotify URI - Example: spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-            Spotify URL - Example: http://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
-            Spotify ID - Example: 6rqhFgbbKwnb9MLmUQDhG6
+            id (str): The URI of the track you want to add. Supports Spotify
+            URIs, Spotify URLs, and Spotify IDs.
 
         """
         result = self.sp.track(id)
@@ -40,10 +40,7 @@ class Data:
 
         Args:
             ids (:obj:`list` of :obj:`str`): The URIs of the tracks you want to
-                add. Supports the following forms:
-                Spotify URI - Example: spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-                Spotify URL - Example: http://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
-                Spotify ID - Example: 6rqhFgbbKwnb9MLmUQDhG6
+                add. Supports Spotify URIs, Spotify URLs, and Spotify IDs.
 
         """
         result = []
@@ -55,11 +52,8 @@ class Data:
         """Adds all the tracks on a single album to a `Data` instance.
 
         Args:
-            id (str): The URI of the album you want to add. Supports the
-                following forms:
-                Spotify URI - Example: spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-                Spotify URL - Example: http://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
-                Spotify ID - Example: 6rqhFgbbKwnb9MLmUQDhG6
+            id (str): The URI of the album you want to add. Supports Spotify
+                URIs, Spotify URLs, and Spotify IDs.
 
         """
         result = []
@@ -74,10 +68,7 @@ class Data:
 
         Args:
             ids (:obj:`list` of :obj:`str`): The URIs of the albums you want to
-                add. Supports the following forms:
-                Spotify URI - Example: spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-                Spotify URL - Example: http://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
-                Spotify ID - Example: 6rqhFgbbKwnb9MLmUQDhG6
+                add. Supports Spotify URIs, Spotify URLs, and Spotify IDs.
 
         """
         for id in tqdm(ids, desc="Adding albums"):
@@ -89,11 +80,8 @@ class Data:
         Only adds the most recently added 100 songs of a playlist.
 
         Args:
-            id (str): The URI of the playlist you want to add. Supports the
-                following forms:
-                Spotify URI - Example: spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-                Spotify URL - Example: http://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
-                Spotify ID - Example: 6rqhFgbbKwnb9MLmUQDhG6
+            id (str): The URI of the playlist you want to add. Supports Spotify
+                URIs, Spotify URLs, and Spotify IDs.
 
         """
         result = []
@@ -110,10 +98,7 @@ class Data:
 
         Args:
             ids (:obj:`list` of :obj:`str`): The URIs of the playlists you want
-                to add. Supports the following forms:
-                Spotify URI - Example: spotify:track:6rqhFgbbKwnb9MLmUQDhG6
-                Spotify URL - Example: http://open.spotify.com/track/6rqhFgbbKwnb9MLmUQDhG6
-                Spotify ID - Example: 6rqhFgbbKwnb9MLmUQDhG6
+                to add. Supports Spotify URIs, Spotify URLs, and Spotify IDs.
 
         """
         for id in tqdm(ids, desc="Adding playlists"):
