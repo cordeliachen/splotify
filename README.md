@@ -9,7 +9,7 @@ A python library for easily graphing and visualizing your Spotify data.
 [![PyPI](https://img.shields.io/pypi/v/splotify)](https://pypi.org/project/splotify/)
 [![Docs](https://img.shields.io/readthedocs/splotify)](https://splotify.readthedocs.io/en/latest/)
 
-# Tutorial
+## Tutorial
 
 View the Jupyter Notebook tutorial with interactive Plotly plots [here](https://colab.research.google.com/drive/14jXAa_LertvDA4oHT148vWpNIDBiYZ5O?usp=sharing).
 
