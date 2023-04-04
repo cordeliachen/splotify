@@ -1,0 +1,29 @@
+plots package
+=============
+
+Submodules
+----------
+
+plots.audiofeatures module
+--------------------------
+
+.. automodule:: plots.audiofeatures
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+plots.category module
+---------------------
+
+.. automodule:: plots.category
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: plots
+   :members:
+   :undoc-members:
+   :show-inheritance:

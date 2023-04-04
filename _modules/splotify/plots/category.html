@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>splotify.plots.category &mdash; Splotify 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Splotify
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">splotify</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Splotify</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">splotify.plots.category</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for splotify.plots.category</h1><div class="highlight"><pre>
+<span></span><span class="c1"># TODO: call Data.get_data() during __init__.</span>
+
+<span class="sd">&quot;&quot;&quot;`CategoryPlot` class.</span>
+
+<span class="sd">This module contains the `CategoryPlot` class that plots the categories of your</span>
+<span class="sd">selected tracks.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+
+
+<div class="viewcode-block" id="CategoryPlot"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.category.CategoryPlot">[docs]</a><span class="k">class</span> <span class="nc">CategoryPlot</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Object to plot the categories of a group of tracks.</span>
+
+<span class="sd">    Supports bar charts and pie charts. Good for looking at the composition of</span>
+<span class="sd">    playlists (i.e. how many songs are from each album/artist).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by</span>
+<span class="sd">            from calling Data.get_data()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracks</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">tracks</span>
+
+<div class="viewcode-block" id="CategoryPlot.bar_chart"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.category.CategoryPlot.bar_chart">[docs]</a>    <span class="k">def</span> <span class="nf">bar_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the grouped tracks in a bar chart.</span>
+
+<span class="sd">        Groups the tracks based on the `groupby` parameter, counts the</span>
+<span class="sd">        number of tracks of each group, and plots the counts.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            groupby (:obj:`str`): What to group the tracks by. Currently only</span>
+<span class="sd">                supports &#39;artist&#39; and &#39;album&#39;. Defaults to &#39;album&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">grouped_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">groupby</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+        <span class="n">grouped_df</span> <span class="o">=</span> <span class="n">grouped_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">grouped_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">groupby</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">]</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">grouped_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">groupby</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">groupby</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="CategoryPlot.pie_chart"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.category.CategoryPlot.pie_chart">[docs]</a>    <span class="k">def</span> <span class="nf">pie_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the grouped tracks in a pie chart.</span>
+
+<span class="sd">        Groups the tracks based on the `groupby` parameter, counts the</span>
+<span class="sd">        number of tracks of each group, and plots the counts.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            groupby (:obj:`str`): What to group the tracks by. Currently only</span>
+<span class="sd">                supports &#39;artist&#39; and &#39;album&#39;. Defaults to &#39;album&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">grouped_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">groupby</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+        <span class="n">grouped_df</span> <span class="o">=</span> <span class="n">grouped_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">grouped_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">groupby</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">]</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">grouped_df</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">groupby</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lia Chen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

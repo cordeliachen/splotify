@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>splotify.spotifyapi &mdash; Splotify 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Splotify
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/splotify.html">splotify package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/splotify.plots.html">splotify.plots package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Splotify</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">splotify.spotifyapi</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for splotify.spotifyapi</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;`SpotifyApi` class.</span>
+
+<span class="sd">This module contains the `SpotifyApi` class that interacts with the Spotify Web</span>
+<span class="sd">API to fetch your Spotify data.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">spotipy</span>
+<span class="kn">from</span> <span class="nn">spotipy.oauth2</span> <span class="kn">import</span> <span class="n">SpotifyOAuth</span>
+
+
+<div class="viewcode-block" id="SpotifyApi"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi">[docs]</a><span class="k">class</span> <span class="nc">SpotifyApi</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Object to fetch Spotify data.</span>
+
+<span class="sd">    Interacts with the Spotify Web API to fetch your Spotify data. When</span>
+<span class="sd">    initialized for the first time, you will need to paste in the URI you were</span>
+<span class="sd">    directed to. This `SpotifyAPI` object is passed into various functions that</span>
+<span class="sd">    need to access Spotify data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        client_id (str): SPOTIPY_CLIENT_ID from Spotify developer app you created.</span>
+<span class="sd">        client_secret (str): SPOTIPY_CLIENT_SECRET from Spotify developer app you created.</span>
+<span class="sd">        redirect_uri (str): SPOTIPY_REDIRECT_URI from Spotify developer app you created.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SPOTIPY_CLIENT_ID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">client_id</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SPOTIPY_CLIENT_SECRET&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">client_secret</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SPOTIPY_REDIRECT_URI&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">redirect_uri</span>
+
+        <span class="n">scope</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;playlist-read-collaborative</span>
+<span class="s2">            playlist-read-private</span>
+<span class="s2">            playlist-modify-private</span>
+<span class="s2">            playlist-modify-public</span>
+<span class="s2">            user-follow-read</span>
+<span class="s2">            user-follow-modify</span>
+<span class="s2">            user-library-modify</span>
+<span class="s2">            user-library-read</span>
+<span class="s2">            user-modify-playback-state</span>
+<span class="s2">            user-read-currently-playing</span>
+<span class="s2">            user-read-playback-state</span>
+<span class="s2">            user-read-playback-position</span>
+<span class="s2">            user-read-private</span>
+<span class="s2">            user-read-recently-played&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">=</span> <span class="n">spotipy</span><span class="o">.</span><span class="n">Spotify</span><span class="p">(</span>
+            <span class="n">auth_manager</span><span class="o">=</span><span class="n">SpotifyOAuth</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="n">open_browser</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="SpotifyApi.search"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpotifyApi.current_user_playlists"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi.current_user_playlists">[docs]</a>    <span class="k">def</span> <span class="nf">current_user_playlists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">current_user_playlists</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SpotifyApi.track"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi.track">[docs]</a>    <span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpotifyApi.album"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi.album">[docs]</a>    <span class="k">def</span> <span class="nf">album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">album</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpotifyApi.playlist"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi.playlist">[docs]</a>    <span class="k">def</span> <span class="nf">playlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">playlist</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SpotifyApi.audio_features"><a class="viewcode-back" href="../../source/splotify.html#splotify.spotifyapi.SpotifyApi.audio_features">[docs]</a>    <span class="k">def</span> <span class="nf">audio_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">audio_features</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lia Chen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

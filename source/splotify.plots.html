@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>splotify.plots package &mdash; Splotify 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="splotify.tests package" href="splotify.tests.html" />
+    <link rel="prev" title="splotify package" href="splotify.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Splotify
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Splotify Tutorial and Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="splotify.html">splotify package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="splotify.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">splotify.plots package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots.audiofeatures">splotify.plots.audiofeatures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots.category">splotify.plots.category module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="splotify.tests.html">splotify.tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="splotify.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="splotify.html#module-splotify.data">splotify.data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="splotify.html#module-splotify.helpers">splotify.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="splotify.html#module-splotify.spotifyapi">splotify.spotifyapi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="splotify.html#module-splotify">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">splotify.plots package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-splotify.plots.audiofeatures">splotify.plots.audiofeatures module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.add_features"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.add_features()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.box_plot"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.box_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.get_features"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.get_features()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.histogram"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.histogram()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.scatter_plot_2d()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d_average"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.scatter_plot_2d_average()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.scatter_plot_3d()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d_average"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.scatter_plot_3d_average()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.select_features"><code class="docutils literal notranslate"><span class="pre">AudioFeaturesPlot.select_features()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-splotify.plots.category">splotify.plots.category module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#splotify.plots.category.CategoryPlot"><code class="docutils literal notranslate"><span class="pre">CategoryPlot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.category.CategoryPlot.bar_chart"><code class="docutils literal notranslate"><span class="pre">CategoryPlot.bar_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.category.CategoryPlot.pie_chart"><code class="docutils literal notranslate"><span class="pre">CategoryPlot.pie_chart()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-splotify.plots">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Splotify</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="splotify.html">splotify package</a></li>
+      <li class="breadcrumb-item active">splotify.plots package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/splotify.plots.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="splotify-plots-package">
+<h1>splotify.plots package<a class="headerlink" href="#splotify-plots-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-splotify.plots.audiofeatures">
+<span id="splotify-plots-audiofeatures-module"></span><h2>splotify.plots.audiofeatures module<a class="headerlink" href="#module-splotify.plots.audiofeatures" title="Permalink to this heading"></a></h2>
+<p><cite>AudioFeaturesPlot</cite> class.</p>
+<p>This module contains the <cite>AudioFeaturesPlot</cite> class that plots the audio
+features of your selected tracks.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.audiofeatures.</span></span><span class="sig-name descname"><span class="pre">AudioFeaturesPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object to plot the audio features of a group of tracks.</p>
+<p>Supports 2D and 3D scatter plots, histograms, and box plots. The supported
+features are:</p>
+<p>“acousticness”,
+“danceability”,
+“duration_ms”,
+“energy”,
+“instrumentalness”,
+“key”,
+“liveness”,
+“loudness”,
+“mode”,
+“speechiness”,
+“tempo”,
+“time_signature”,
+“valence”</p>
+<p>These features are explained further in the <a class="reference external" href="https://developer.spotify.com/documentation/web-api/reference/get-audio-features">Spotify Web API documentation</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sp</strong> (<a class="reference internal" href="splotify.html#splotify.spotifyapi.SpotifyApi" title="splotify.spotifyapi.SpotifyApi"><em>splotify.spotifyapi.SpotifyApi</em></a>) – A <cite>SpotifyApi</cite> instance.</p></li>
+<li><p><strong>tracks</strong> (<em>pandas.DataFrame</em>) – A Pandas Dataframe, preferably obtained by
+from calling Data.get_data()</p></li>
+<li><p><strong>features</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – The list of audio features
+that you want to plot. If len(features) &gt; 3, only the first 3
+features in the list will be selected.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.add_features">
+<span class="sig-name descname"><span class="pre">add_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.add_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.add_features" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.box_plot">
+<span class="sig-name descname"><span class="pre">box_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.box_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.box_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the tracks in a box plot by the selected audio feature.</p>
+<p>Setting the <cite>groupby</cite> parameter will plot each resulting group as a
+separate box plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>feature</strong> (<em>str</em>) – The audio feature you want to plot.</p></li>
+<li><p><strong>groupby</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – What to group the tracks by.
+Currently only supports ‘artist’ and ‘album’. Defaults to
+‘None’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.get_features">
+<span class="sig-name descname"><span class="pre">get_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.get_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.get_features" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the currently selected audio features.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.histogram">
+<span class="sig-name descname"><span class="pre">histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.histogram" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the tracks in a histogram by the selected audio feature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>feature</strong> (<em>str</em>) – The audio feature you want to plot.</p></li>
+<li><p><strong>color</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – What the color of the points on the
+plot represent. Currently only supports ‘artist’ and ‘album’.
+Defaults to ‘None’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d">
+<span class="sig-name descname"><span class="pre">scatter_plot_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.scatter_plot_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the tracks in a 2D scatter plot by the first 2 selected audio
+features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – What the color of the points on the
+plot represent. Currently only supports ‘artist’ and ‘album’.
+Defaults to ‘None’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d_average">
+<span class="sig-name descname"><span class="pre">scatter_plot_2d_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'album'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.scatter_plot_2d_average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d_average" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the averages of tracks in a 2D scatter plot by the first 2
+selected audio features.</p>
+<p>Groups the tracks based on the <cite>groupby</cite> parameter, computes the
+averages of each audio feature for each group, and plots the averages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – What to group the tracks by. Currently only
+supports ‘artist’ and ‘album’. Defaults to ‘album’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d">
+<span class="sig-name descname"><span class="pre">scatter_plot_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.scatter_plot_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the tracks in a 3D scatter plot by the first 3 selected audio
+features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>, optional) – What the color of the points on the
+plot represent. Currently only supports ‘artist’ and ‘album’.
+Defaults to ‘None’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d_average">
+<span class="sig-name descname"><span class="pre">scatter_plot_3d_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'album'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.scatter_plot_3d_average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d_average" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the averages of tracks in a 3D scatter plot by the first 3
+selected audio features.</p>
+<p>Groups the tracks based on the <cite>groupby</cite> parameter, computes the
+averages of each audio feature for each group, and plots the averages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – What to group the tracks by. Currently only
+supports ‘artist’ and ‘album’. Defaults to ‘album’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot.select_features">
+<span class="sig-name descname"><span class="pre">select_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot.select_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot.select_features" title="Permalink to this definition"></a></dt>
+<dd><p>Selects the audio features you want to plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>features</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – The list of audio features
+that you want to plot. If len(features) &gt; 3, only the first 3
+features in the list will be selected.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-splotify.plots.category">
+<span id="splotify-plots-category-module"></span><h2>splotify.plots.category module<a class="headerlink" href="#module-splotify.plots.category" title="Permalink to this heading"></a></h2>
+<p><cite>CategoryPlot</cite> class.</p>
+<p>This module contains the <cite>CategoryPlot</cite> class that plots the categories of your
+selected tracks.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="splotify.plots.category.CategoryPlot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.category.</span></span><span class="sig-name descname"><span class="pre">CategoryPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/category.html#CategoryPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.category.CategoryPlot" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object to plot the categories of a group of tracks.</p>
+<p>Supports bar charts and pie charts. Good for looking at the composition of
+playlists (i.e. how many songs are from each album/artist).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tracks</strong> (<em>pandas.DataFrame</em>) – A Pandas Dataframe, preferably obtained by
+from calling Data.get_data()</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.category.CategoryPlot.bar_chart">
+<span class="sig-name descname"><span class="pre">bar_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'album'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/category.html#CategoryPlot.bar_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.category.CategoryPlot.bar_chart" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the grouped tracks in a bar chart.</p>
+<p>Groups the tracks based on the <cite>groupby</cite> parameter, counts the
+number of tracks of each group, and plots the counts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – What to group the tracks by. Currently only
+supports ‘artist’ and ‘album’. Defaults to ‘album’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.category.CategoryPlot.pie_chart">
+<span class="sig-name descname"><span class="pre">pie_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'album'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/category.html#CategoryPlot.pie_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.category.CategoryPlot.pie_chart" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the grouped tracks in a pie chart.</p>
+<p>Groups the tracks based on the <cite>groupby</cite> parameter, counts the
+number of tracks of each group, and plots the counts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>groupby</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – What to group the tracks by. Currently only
+supports ‘artist’ and ‘album’. Defaults to ‘album’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-splotify.plots">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-splotify.plots" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="splotify.html" class="btn btn-neutral float-left" title="splotify package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="splotify.tests.html" class="btn btn-neutral float-right" title="splotify.tests package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lia Chen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>splotify.plots.audiofeatures &mdash; Splotify 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Splotify
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Splotify Tutorial and Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/splotify.html">splotify package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/splotify.plots.html">splotify.plots package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Splotify</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">splotify.plots.audiofeatures</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for splotify.plots.audiofeatures</h1><div class="highlight"><pre>
+<span></span><span class="c1"># TODO: call Data.get_data() during __init__.</span>
+
+<span class="sd">&quot;&quot;&quot;`AudioFeaturesPlot` class.</span>
+
+<span class="sd">This module contains the `AudioFeaturesPlot` class that plots the audio</span>
+<span class="sd">features of your selected tracks.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<div class="viewcode-block" id="AudioFeaturesPlot"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot">[docs]</a><span class="k">class</span> <span class="nc">AudioFeaturesPlot</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Object to plot the audio features of a group of tracks.</span>
+
+<span class="sd">    Supports 2D and 3D scatter plots, histograms, and box plots. The supported</span>
+<span class="sd">    features are:</span>
+
+<span class="sd">    &quot;acousticness&quot;,</span>
+<span class="sd">    &quot;danceability&quot;,</span>
+<span class="sd">    &quot;duration_ms&quot;,</span>
+<span class="sd">    &quot;energy&quot;,</span>
+<span class="sd">    &quot;instrumentalness&quot;,</span>
+<span class="sd">    &quot;key&quot;,</span>
+<span class="sd">    &quot;liveness&quot;,</span>
+<span class="sd">    &quot;loudness&quot;,</span>
+<span class="sd">    &quot;mode&quot;,</span>
+<span class="sd">    &quot;speechiness&quot;,</span>
+<span class="sd">    &quot;tempo&quot;,</span>
+<span class="sd">    &quot;time_signature&quot;,</span>
+<span class="sd">    &quot;valence&quot;</span>
+
+<span class="sd">    These features are explained further in the `Spotify Web API documentation &lt;https://developer.spotify.com/documentation/web-api/reference/get-audio-features&gt;`_.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.</span>
+<span class="sd">        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by</span>
+<span class="sd">            from calling Data.get_data()</span>
+<span class="sd">        features(:obj:`list` of :obj:`str`): The list of audio features</span>
+<span class="sd">            that you want to plot. If len(features) &gt; 3, only the first 3</span>
+<span class="sd">            features in the list will be selected.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">tracks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">=</span> <span class="n">sp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_features</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.add_features"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.add_features">[docs]</a>    <span class="k">def</span> <span class="nf">add_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding features&quot;</span><span class="p">):</span>
+            <span class="n">audio_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">audio_features</span><span class="p">(</span><span class="nb">id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">&quot;acousticness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;danceability&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;duration_ms&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;energy&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;instrumentalness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;key&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;liveness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;loudness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mode&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;speechiness&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tempo&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;time_signature&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;valence&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">track_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">audio_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span> <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track_data</span><span class="p">)</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">fs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.select_features"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.select_features">[docs]</a>    <span class="k">def</span> <span class="nf">select_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects the audio features you want to plot.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            features(:obj:`list` of :obj:`str`): The list of audio features</span>
+<span class="sd">                that you want to plot. If len(features) &gt; 3, only the first 3</span>
+<span class="sd">                features in the list will be selected.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f1</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f1</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f2</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f2</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f3</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f3</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.get_features"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.get_features">[docs]</a>    <span class="k">def</span> <span class="nf">get_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the currently selected audio features.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">f1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f3</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.scatter_plot_2d"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d">[docs]</a>    <span class="k">def</span> <span class="nf">scatter_plot_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the tracks in a 2D scatter plot by the first 2 selected audio</span>
+<span class="sd">        features.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            color (:obj:`str`, optional): What the color of the points on the</span>
+<span class="sd">                plot represent. Currently only supports &#39;artist&#39; and &#39;album&#39;.</span>
+<span class="sd">                Defaults to &#39;None&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f1</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f2</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+            <span class="n">custom_data</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;artist&quot;</span><span class="p">,</span> <span class="s2">&quot;album&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;name: %</span><span class="si">{customdata[0]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;artist: %</span><span class="si">{customdata[1]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;album: %</span><span class="si">{customdata[2]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.scatter_plot_3d"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d">[docs]</a>    <span class="k">def</span> <span class="nf">scatter_plot_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the tracks in a 3D scatter plot by the first 3 selected audio</span>
+<span class="sd">        features.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            color (:obj:`str`, optional): What the color of the points on the</span>
+<span class="sd">                plot represent. Currently only supports &#39;artist&#39; and &#39;album&#39;.</span>
+<span class="sd">                Defaults to &#39;None&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f1</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f2</span><span class="p">,</span>
+            <span class="n">z</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f3</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+            <span class="n">custom_data</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;artist&quot;</span><span class="p">,</span> <span class="s2">&quot;album&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;name: %</span><span class="si">{customdata[0]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;artist: %</span><span class="si">{customdata[1]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;album: %</span><span class="si">{customdata[2]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.scatter_plot_2d_average"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_2d_average">[docs]</a>    <span class="k">def</span> <span class="nf">scatter_plot_2d_average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the averages of tracks in a 2D scatter plot by the first 2</span>
+<span class="sd">        selected audio features.</span>
+
+<span class="sd">        Groups the tracks based on the `groupby` parameter, computes the</span>
+<span class="sd">        averages of each audio feature for each group, and plots the averages.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            groupby (:obj:`str`): What to group the tracks by. Currently only</span>
+<span class="sd">                supports &#39;artist&#39; and &#39;album&#39;. Defaults to &#39;album&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">avg_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">avg_df</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f1</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f2</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">groupby</span><span class="p">,</span>
+            <span class="n">custom_data</span><span class="o">=</span><span class="p">[</span><span class="n">groupby</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">groupby</span> <span class="o">+</span> <span class="s2">&quot;: %</span><span class="si">{customdata[0]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.scatter_plot_3d_average"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.scatter_plot_3d_average">[docs]</a>    <span class="k">def</span> <span class="nf">scatter_plot_3d_average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the averages of tracks in a 3D scatter plot by the first 3</span>
+<span class="sd">        selected audio features.</span>
+
+<span class="sd">        Groups the tracks based on the `groupby` parameter, computes the</span>
+<span class="sd">        averages of each audio feature for each group, and plots the averages.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            groupby (:obj:`str`): What to group the tracks by. Currently only</span>
+<span class="sd">                supports &#39;artist&#39; and &#39;album&#39;. Defaults to &#39;album&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">avg_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span>
+            <span class="n">avg_df</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f1</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f2</span><span class="p">,</span>
+            <span class="n">z</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f3</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">groupby</span><span class="p">,</span>
+            <span class="n">custom_data</span><span class="o">=</span><span class="p">[</span><span class="n">groupby</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">groupby</span> <span class="o">+</span> <span class="s2">&quot;: %</span><span class="si">{customdata[0]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.histogram"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.histogram">[docs]</a>    <span class="k">def</span> <span class="nf">histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the tracks in a histogram by the selected audio feature.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            feature (str): The audio feature you want to plot.</span>
+<span class="sd">            color (:obj:`str`, optional): What the color of the points on the</span>
+<span class="sd">                plot represent. Currently only supports &#39;artist&#39; and &#39;album&#39;.</span>
+<span class="sd">                Defaults to &#39;None&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="AudioFeaturesPlot.box_plot"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.box_plot">[docs]</a>    <span class="k">def</span> <span class="nf">box_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the tracks in a box plot by the selected audio feature.</span>
+
+<span class="sd">        Setting the `groupby` parameter will plot each resulting group as a</span>
+<span class="sd">        separate box plot.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            feature (str): The audio feature you want to plot.</span>
+<span class="sd">            groupby (:obj:`str`, optional): What to group the tracks by.</span>
+<span class="sd">                Currently only supports &#39;artist&#39; and &#39;album&#39;. Defaults to</span>
+<span class="sd">                &#39;None&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">box</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">groupby</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">feature</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">groupby</span><span class="p">,</span>
+            <span class="n">points</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+            <span class="n">custom_data</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;artist&quot;</span><span class="p">,</span> <span class="s2">&quot;album&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+            <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;name: %</span><span class="si">{customdata[0]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;artist: %</span><span class="si">{customdata[1]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;album: %</span><span class="si">{customdata[2]}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lia Chen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>splotify.data &mdash; Splotify 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Splotify
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">splotify</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Splotify</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">splotify.data</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for splotify.data</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;`Data` class.</span>
+
+<span class="sd">This module contains the `Data` class that stores the tracks you want to plot.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="Data"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data">[docs]</a><span class="k">class</span> <span class="nc">Data</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Object to store the tracks you want to plot.</span>
+
+<span class="sd">    Add all the tracks you want to view together in a single plot to a `Data`</span>
+<span class="sd">    instance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">=</span> <span class="n">sp</span>
+
+<div class="viewcode-block" id="Data.add_track"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.add_track">[docs]</a>    <span class="k">def</span> <span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a single track to a `Data` instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The URI of the track you want to add. Supports Spotify</span>
+<span class="sd">            URIs, Spotify URLs, and Spotify IDs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Data.add_tracks"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.add_tracks">[docs]</a>    <span class="k">def</span> <span class="nf">add_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds multiple tracks to a `Data` instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ids (:obj:`list` of :obj:`str`): The URIs of the tracks you want to</span>
+<span class="sd">                add. Supports Spotify URIs, Spotify URLs, and Spotify IDs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding tracks&quot;</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Data.add_album"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.add_album">[docs]</a>    <span class="k">def</span> <span class="nf">add_album</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds all the tracks on a single album to a `Data` instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The URI of the album you want to add. Supports Spotify</span>
+<span class="sd">                URIs, Spotify URLs, and Spotify IDs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">album</span><span class="p">(</span><span class="nb">id</span><span class="p">)[</span><span class="s2">&quot;tracks&quot;</span><span class="p">][</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding album&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Data.add_albums"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.add_albums">[docs]</a>    <span class="k">def</span> <span class="nf">add_albums</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds all the tracks on multiple albums to a `Data` instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ids (:obj:`list` of :obj:`str`): The URIs of the albums you want to</span>
+<span class="sd">                add. Supports Spotify URIs, Spotify URLs, and Spotify IDs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding albums&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_album</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Data.add_playlist"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.add_playlist">[docs]</a>    <span class="k">def</span> <span class="nf">add_playlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the tracks on a single playlist to a `Data` instance.</span>
+
+<span class="sd">        Only adds the most recently added 100 songs of a playlist.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (str): The URI of the playlist you want to add. Supports Spotify</span>
+<span class="sd">                URIs, Spotify URLs, and Spotify IDs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="o">.</span><span class="n">playlist</span><span class="p">(</span><span class="nb">id</span><span class="p">)[</span><span class="s2">&quot;tracks&quot;</span><span class="p">][</span><span class="s2">&quot;items&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding playlist&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_track</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="s2">&quot;track&quot;</span><span class="p">][</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Data.add_playlists"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.add_playlists">[docs]</a>    <span class="k">def</span> <span class="nf">add_playlists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds the tracks on multiple playlists to a `Data` instance.</span>
+
+<span class="sd">        Only adds the most recently added 100 songs of a playlist.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ids (:obj:`list` of :obj:`str`): The URIs of the playlists you want</span>
+<span class="sd">                to add. Supports Spotify URIs, Spotify URLs, and Spotify IDs.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding playlists&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_playlist</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Data.get_data"><a class="viewcode-back" href="../../source/splotify.html#splotify.data.Data.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns all the tracks in a `Data` instance as a Pandas Dataframe</span>
+
+<span class="sd">        The returned Dataframe should be passed in while initializing the plot</span>
+<span class="sd">        classes, not the Data object itself.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A Pandas Dataframe containing the track data added to the `Data`</span>
+<span class="sd">            instance with the columns [&quot;name&quot;, &quot;artist&quot;, &quot;album&quot;, &quot;uri&quot;].</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Creating DataFrame&quot;</span><span class="p">):</span>
+            <span class="n">track_data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">track_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+            <span class="n">track_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="s2">&quot;artists&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+            <span class="n">track_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="s2">&quot;album&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+            <span class="n">track_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">])</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;artist&quot;</span><span class="p">,</span> <span class="s2">&quot;album&quot;</span><span class="p">,</span> <span class="s2">&quot;uri&quot;</span><span class="p">])</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Lia Chen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
