@@ -19,9 +19,12 @@ class SpotifyApi:
     need to access Spotify data.
 
     Args:
-        client_id (str): SPOTIPY_CLIENT_ID from Spotify developer app you created.
-        client_secret (str): SPOTIPY_CLIENT_SECRET from Spotify developer app you created.
-        redirect_uri (str): SPOTIPY_REDIRECT_URI from Spotify developer app you created.
+        client_id (str): SPOTIPY_CLIENT_ID from Spotify developer app you
+            created.
+        client_secret (str): SPOTIPY_CLIENT_SECRET from Spotify developer app
+            you created.
+        redirect_uri (str): SPOTIPY_REDIRECT_URI from Spotify developer app you
+            created.
 
     """
 
