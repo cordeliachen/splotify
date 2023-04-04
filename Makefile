@@ -34,7 +34,7 @@ pages:
 	rm -rf $(TMPREPO)/*
 	cp -r docs/_build/html/* $(TMPREPO)
 	cd $(TMPREPO);\
-	touch .nojekyll
+	touch .nojekyll;\
 	git add -A ;\
 	git commit -a -m 'auto-updating docs' ;\
 	git push
