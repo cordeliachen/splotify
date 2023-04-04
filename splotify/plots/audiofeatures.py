@@ -72,8 +72,8 @@ class AudioFeaturesPlot:
             ]
             track_data = [audio_features.get(feature) for feature in features]
             data.append(track_data)
-        fs = pd.DataFrame(data, columns=features)
-        self.df = pd.concat([self.df, fs], axis=1)
+        self.fs = pd.DataFrame(data, columns=features)
+        self.df = pd.concat([self.df, self.fs], axis=1)
 
     def select_features(self, features):
         """Selects the audio features you want to plot.
@@ -178,7 +178,11 @@ class AudioFeaturesPlot:
                 supports 'artist' and 'album'. Defaults to 'album'.
 
         """
-        avg_df = self.df.groupby(groupby, as_index=False).mean()
+        avg_df = (
+            pd.concat([self.df.loc[:, groupby], self.fs], axis=1)
+            .groupby(groupby, as_index=False)
+            .mean()
+        )
 
         fig = px.scatter(
             avg_df,
@@ -211,7 +215,12 @@ class AudioFeaturesPlot:
                 supports 'artist' and 'album'. Defaults to 'album'.
 
         """
-        avg_df = self.df.groupby(groupby, as_index=False).mean()
+
+        avg_df = (
+            pd.concat([self.df.loc[:, groupby], self.fs], axis=1)
+            .groupby(groupby, as_index=False)
+            .mean()
+        )
 
         fig = px.scatter_3d(
             avg_df,
