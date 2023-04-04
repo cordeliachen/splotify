@@ -4,7 +4,25 @@ from spotipy.oauth2 import SpotifyOAuth
 
 
 class SpotifyApi:
+    """Object to fetch Spotify data.
+
+    Interacts with the Spotify Web API to fetch your Spotify data.
+
+    """
+
     def __init__(self, client_id, client_secret, redirect_uri):
+        """Initializes a `SpotifyApi` object to fetch your Spotify data.
+
+        When called for the first time, you will need to paste in the URI you were
+        directed to. This `SpotifyAPI` object is passed into various functions that
+        need to access Spotify data.
+
+        Args:
+            client_id (str): SPOTIPY_CLIENT_ID from Spotify developer app you created.
+            client_secret (str): SPOTIPY_CLIENT_SECRET from Spotify developer app you created.
+            redirect_uri (str): SPOTIPY_REDIRECT_URI from Spotify developer app you created.
+
+        """
         os.environ["SPOTIPY_CLIENT_ID"] = client_id
         os.environ["SPOTIPY_CLIENT_SECRET"] = client_secret
         os.environ["SPOTIPY_REDIRECT_URI"] = redirect_uri
