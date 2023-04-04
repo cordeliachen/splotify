@@ -28,7 +28,7 @@ class Data:
 
         Args:
             id (str): The URI of the track you want to add. Supports Spotify
-            URIs, Spotify URLs, and Spotify IDs.
+                URIs, Spotify URLs, and Spotify IDs.
 
         """
         result = self.sp.track(id)
