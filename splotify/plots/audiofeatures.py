@@ -183,7 +183,6 @@ class AudioFeaturesPlot:
             .groupby(groupby, as_index=False)
             .mean()
         )
-
         fig = px.scatter(
             avg_df,
             x=self.f1,
