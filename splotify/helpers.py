@@ -1,10 +1,33 @@
-from tabulate import tabulate
+"""URI search functions.
 
-# for getting the uris of public spotify data
-# i.e. tracks, albums, artists, and public playlists
+This module contains functions to help get the Spotify URIs of tracks, albums,
+artists, and playlists.
+
+"""
+
+from tabulate import tabulate
 
 
 def search_id(sp, query, limit=10, type="track"):
+    """Returns and prints the URIs of public Spotify data.
+
+    Returns and prints the URIs of Spotify data that is not user-specific such
+    as tracks, albums, artists, and public playlists.
+
+    Args:
+        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
+        query (str): The query you want to search for.
+        limit (:obj:`int`, optional): The number of results you want to view.
+            Defaults to 10.
+        type (:obj:`str`, optional): The type of URI you want to search up.
+            Currently only supports 'track', 'album', 'artist', and 'playlist'.
+            Defaults to 'track'.
+
+    Returns:
+        A nested list. The first list is the names of the columns, and the
+        remaining lists are the search results.
+
+    """
     results = sp.search(query, limit, type)
     if type == "track":
         table = [["Name", "Album", "Artists", "URI"]]
@@ -41,13 +64,26 @@ def search_id(sp, query, limit=10, type="track"):
                 [playlist["name"], playlist["owner"]["display_name"], playlist["uri"]]
             )
         print(tabulate(table, headers="firstrow"))
+    # else:
+
     return table
 
 
-# for getting the uris of personal spotify data i.e. playlists you own
-
-
 def my_id(sp, limit=10, type="playlist"):
+    """Returns and prints the URIs of your personal Spotify playlists.
+
+    Args:
+        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
+        limit (:obj:`int`, optional): The number of results you want to view.
+            Defaults to 10.
+        type (str, optional): The type of URI you want to search up. Defaults
+            to 'playlist'. Currently only supports 'playlist'.
+
+    Returns:
+        A nested list. The first list is the names of the columns, and the
+        remaining lists are the search results.
+
+    """
     if type == "playlist":
         results = sp.current_user_playlists()
         table = [["Name", "URI"]]

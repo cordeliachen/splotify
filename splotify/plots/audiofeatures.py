@@ -1,11 +1,49 @@
+# TODO: call Data.get_data() during __init__.
+
+"""`AudioFeaturesPlot` class.
+
+This module contains the `AudioFeaturesPlot` class that plots the audio
+features of your selected tracks.
+
+"""
+
 import plotly.express as px
 import pandas as pd
 from tqdm import tqdm
 
-# Generate plots to view the audio features of a group of tracks
-
 
 class AudioFeaturesPlot:
+    """Object to plot the audio features of a group of tracks.
+
+    Supports 2D and 3D scatter plots, histograms, and box plots. The supported
+    features are:
+
+    "acousticness",
+    "danceability",
+    "duration_ms",
+    "energy",
+    "instrumentalness",
+    "key",
+    "liveness",
+    "loudness",
+    "mode",
+    "speechiness",
+    "tempo",
+    "time_signature",
+    "valence"
+
+    These features are explained further in the `Spotify Web API documentation <https://developer.spotify.com/documentation/web-api/reference/get-audio-features>`_.
+
+    Args:
+        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
+        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by
+            from calling Data.get_data()
+        features(:obj:`list` of :obj:`str`): The list of audio features
+            that you want to plot. If len(features) > 3, only the first 3
+            features in the list will be selected.
+
+    """
+
     def __init__(self, sp, tracks, features):
         self.df = tracks
         self.sp = sp
@@ -37,6 +75,14 @@ class AudioFeaturesPlot:
         self.df = pd.concat([self.df, fs], axis=1)
 
     def select_features(self, features):
+        """Selects the audio features you want to plot.
+
+        Args:
+            features(:obj:`list` of :obj:`str`): The list of audio features
+                that you want to plot. If len(features) > 3, only the first 3
+                features in the list will be selected.
+
+        """
         if len(features) > 0:
             self.f1 = features[0]
         else:
@@ -53,9 +99,19 @@ class AudioFeaturesPlot:
             self.f3 = None
 
     def get_features(self):
+        """Returns the currently selected audio features."""
         return [self.f1, self.f2, self.f3]
 
     def scatter_plot_2d(self, color=None):
+        """Plots the tracks in a 2D scatter plot by the first 2 selected audio
+        features.
+
+        Args:
+            color (:obj:`str`, optional): What the color of the points on the
+                plot represent. Currently only supports 'artist' and 'album'.
+                Defaults to 'None'.
+
+        """
         fig = px.scatter(
             self.df,
             x=self.f1,
@@ -78,6 +134,15 @@ class AudioFeaturesPlot:
         return fig
 
     def scatter_plot_3d(self, color=None):
+        """Plots the tracks in a 3D scatter plot by the first 3 selected audio
+        features.
+
+        Args:
+            color (:obj:`str`, optional): What the color of the points on the
+                plot represent. Currently only supports 'artist' and 'album'.
+                Defaults to 'None'.
+
+        """
         fig = px.scatter_3d(
             self.df,
             x=self.f1,
@@ -101,6 +166,17 @@ class AudioFeaturesPlot:
         return fig
 
     def scatter_plot_2d_average(self, groupby="album"):
+        """Plots the averages of tracks in a 2D scatter plot by the first 2
+        selected audio features.
+
+        Groups the tracks based on the `groupby` parameter, computes the
+        averages of each audio feature for each group, and plots the averages.
+
+        Args:
+            groupby (:obj:`str`): What to group the tracks by. Currently only
+                supports 'artist' and 'album'. Defaults to 'album'.
+
+        """
         avg_df = self.df.groupby(groupby, as_index=False).mean()
 
         fig = px.scatter(
@@ -123,6 +199,17 @@ class AudioFeaturesPlot:
         return fig
 
     def scatter_plot_3d_average(self, groupby="album"):
+        """Plots the averages of tracks in a 3D scatter plot by the first 3
+        selected audio features.
+
+        Groups the tracks based on the `groupby` parameter, computes the
+        averages of each audio feature for each group, and plots the averages.
+
+        Args:
+            groupby (:obj:`str`): What to group the tracks by. Currently only
+                supports 'artist' and 'album'. Defaults to 'album'.
+
+        """
         avg_df = self.df.groupby(groupby, as_index=False).mean()
 
         fig = px.scatter_3d(
@@ -146,12 +233,33 @@ class AudioFeaturesPlot:
         return fig
 
     def histogram(self, feature, color=None):
+        """Plots the tracks in a histogram by the selected audio feature.
+
+        Args:
+            feature (str): The audio feature you want to plot.
+            color (:obj:`str`, optional): What the color of the points on the
+                plot represent. Currently only supports 'artist' and 'album'.
+                Defaults to 'None'.
+
+        """
         fig = px.histogram(self.df, x=feature, color=color)
         fig.show()
 
         return fig
 
     def box_plot(self, feature, groupby=None):
+        """Plots the tracks in a box plot by the selected audio feature.
+
+        Setting the `groupby` parameter will plot each resulting group as a
+        separate box plot.
+
+        Args:
+            feature (str): The audio feature you want to plot.
+            groupby (:obj:`str`, optional): What to group the tracks by.
+                Currently only supports 'artist' and 'album'. Defaults to
+                'None'.
+
+        """
         fig = px.box(
             self.df,
             x=groupby,

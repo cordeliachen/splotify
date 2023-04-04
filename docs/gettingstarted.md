@@ -1,17 +1,12 @@
-# Splotify
+# Getting Started
 
-A python library for easily graphing and visualizing your Spotify data.
+Splotify is a python library for easily graphing and visualizing your Spotify data.
 
 [![Build Status](https://github.com/cordeliachen/splotify/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/cordeliachen/splotify/actions?query=workflow%3A%22Build+Status%22)
 [![codecov](https://codecov.io/gh/cordeliachen/splotify/branch/main/graph/badge.svg)](https://codecov.io/gh/cordeliachen/splotify)
 ![](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![](https://img.shields.io/github/issues/cordeliachen/splotify)
 [![PyPI](https://img.shields.io/pypi/v/splotify)](https://pypi.org/project/splotify/)
-[![Docs](https://img.shields.io/readthedocs/splotify)](https://splotify.readthedocs.io/en/latest/)
-
-# Tutorial
-
-View the Jupyter Notebook tutorial with interactive Plotly plots [here](https://colab.research.google.com/drive/14jXAa_LertvDA4oHT148vWpNIDBiYZ5O?usp=sharing).
 
 ## Installation
 
@@ -23,16 +18,16 @@ Install the library by running:
 
 1. First, you need to get your `SPOTIPY_CLIENT_ID`, `SPOTIPY_CLIENT_SECRET`, and redirect uri. [Here](https://www.youtube.com/watch?v=3RGm4jALukM) is a video created by Spotipy that explains how to do so.
 
-2. Declare a `SpotifyAPI` object that allows you to access data from Spotify.
+2. Declare a [SpotifyApi](source/splotify.html#splotify.spotifyapi.SpotifyApi) object that allows you to access data from Spotify.
 
-3. Declare a `Data` object to store all the songs which you want to plot. You can add individual or multiple tracks, albums, or playlists at a time.
+3. Declare a [Data](source/splotify.html#splotify.data.Data) object to store all the songs which you want to plot. You can add individual or multiple tracks, albums, or playlists at a time.
 
 4. Determine the kind of data you want to plot:
 
-   - Category plots (bar charts, pie charts) allow you to plot songs by groups (i.e. artists or albums).
-   - Audio Feature Plots allow you to plot songs by their audio features.
+   - [Category plots](source/splotify.plots.html#splotify.plots.category.CategoryPlot) (bar charts, pie charts) allow you to plot songs by groups (i.e. artists or albums).
+   - [Audio feature plots](source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot) allow you to plot songs by their audio features.
 
-5. If you need to look up the Spotify ids of tracks, albums, artists, or playlists, you can use the `search_id` (for general searches) or `my_id` (for user-specific playlists) functions.
+5. If you need to look up the Spotify ids of tracks, albums, artists, or playlists, you can use [search_id](source/splotify.html#splotify.helpers.search_id) (for general searches) or [my_id](source/splotify.html#splotify.helpers.my_id) (for user-specific playlists) functions.
 
 Here is an example analyzing Spotify's "This is Radiohead" playlist:
 
@@ -71,6 +66,6 @@ cp.pie_chart()
 ```
 
 This code produces the following plots:
-![](/examples/radiohead_scatter_plot.png)
-![](/examples/radiohead_box_plot.png)
-![](/examples/radiohead_pie_chart.png)
+![](../examples/radiohead_scatter_plot.png)
+![](../examples/radiohead_box_plot.png)
+![](../examples/radiohead_pie_chart.png)
