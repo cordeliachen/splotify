@@ -108,7 +108,8 @@
 <span class="sd">    &quot;time_signature&quot;,</span>
 <span class="sd">    &quot;valence&quot;</span>
 
-<span class="sd">    These features are explained further in the `Spotify Web API documentation &lt;https://developer.spotify.com/documentation/web-api/reference/get-audio-features&gt;`_.</span>
+<span class="sd">    These features are explained further in the `Spotify Web API documentation</span>
+<span class="sd">    &lt;https://developer.spotify.com/documentation/web-api/reference/get-audio-features&gt;`_.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.</span>
@@ -147,8 +148,8 @@
             <span class="p">]</span>
             <span class="n">track_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">audio_features</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span> <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features</span><span class="p">]</span>
             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">track_data</span><span class="p">)</span>
-        <span class="n">fs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">fs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AudioFeaturesPlot.select_features"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.audiofeatures.AudioFeaturesPlot.select_features">[docs]</a>    <span class="k">def</span> <span class="nf">select_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Selects the audio features you want to plot.</span>
@@ -253,8 +254,11 @@
 <span class="sd">                supports &#39;artist&#39; and &#39;album&#39;. Defaults to &#39;album&#39;.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">avg_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-
+        <span class="n">avg_df</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">groupby</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
             <span class="n">avg_df</span><span class="p">,</span>
             <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">f1</span><span class="p">,</span>
@@ -286,7 +290,12 @@
 <span class="sd">                supports &#39;artist&#39; and &#39;album&#39;. Defaults to &#39;album&#39;.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">avg_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">avg_df</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">groupby</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="p">)</span>
 
         <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter_3d</span><span class="p">(</span>
             <span class="n">avg_df</span><span class="p">,</span>

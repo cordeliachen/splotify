@@ -13,6 +13,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -37,9 +38,15 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Tutorials:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">splotify</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Splotify Tutorial and Examples</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/splotify.html">splotify package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/splotify.plots.html">splotify.plots package</a></li>
 </ul>
 
         </div>
@@ -73,19 +80,19 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="vcr_cassette_dir"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.vcr_cassette_dir">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="vcr_cassette_dir"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.vcr_cassette_dir">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">vcr_cassette_dir</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;splotify/tests/cassettes&quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="afp"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.afp">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<div class="viewcode-block" id="afp"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.afp">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span> <span class="nf">afp</span><span class="p">(</span><span class="n">track_data</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">audiofeatures</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span>
         <span class="n">sp</span><span class="p">,</span> <span class="n">track_data</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;loudness&quot;</span><span class="p">,</span> <span class="s2">&quot;danceability&quot;</span><span class="p">,</span> <span class="s2">&quot;energy&quot;</span><span class="p">]</span>
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="test_select_features"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_select_features">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_select_features"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_select_features">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_select_features</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">afp</span><span class="o">.</span><span class="n">get_features</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;loudness&quot;</span><span class="p">,</span> <span class="s2">&quot;danceability&quot;</span><span class="p">,</span> <span class="s2">&quot;energy&quot;</span><span class="p">]</span>
 
@@ -94,42 +101,42 @@
     <span class="k">assert</span> <span class="n">afp</span><span class="o">.</span><span class="n">get_features</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;speechiness&quot;</span><span class="p">,</span> <span class="s2">&quot;tempo&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="test_scatter_plot_2d"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_2d">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_scatter_plot_2d"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_2d">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_scatter_plot_2d</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_2d</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="test_scatter_plot_3d"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_3d">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_scatter_plot_3d"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_3d">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_scatter_plot_3d</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_3d</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="test_scatter_plot_2d_average"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_2d_average">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_scatter_plot_2d_average"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_2d_average">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_scatter_plot_2d_average</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_2d_average</span><span class="p">(</span><span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="test_scatter_plot_3d_average"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_3d_average">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_scatter_plot_3d_average"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_scatter_plot_3d_average">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_scatter_plot_3d_average</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_3d_average</span><span class="p">(</span><span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="test_histogram"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_histogram">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_histogram"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_histogram">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_histogram</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="s2">&quot;danceability&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="test_box_plot"><a class="viewcode-back" href="../../../splotify.tests.html#splotify.tests.test_audiofeatures.test_box_plot">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<div class="viewcode-block" id="test_box_plot"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_box_plot">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_box_plot</span><span class="p">(</span><span class="n">afp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">box_plot</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="s2">&quot;danceability&quot;</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 
