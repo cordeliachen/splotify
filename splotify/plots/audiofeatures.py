@@ -32,7 +32,8 @@ class AudioFeaturesPlot:
     "time_signature",
     "valence"
 
-    These features are explained further in the `Spotify Web API documentation <https://developer.spotify.com/documentation/web-api/reference/get-audio-features>`_.
+    These features are explained further in the `Spotify Web API documentation
+    <https://developer.spotify.com/documentation/web-api/reference/get-audio-features>`_.
 
     Args:
         sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
