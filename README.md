@@ -7,7 +7,11 @@ A python library for easily graphing and visualizing your Spotify data.
 ![](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![](https://img.shields.io/github/issues/cordeliachen/splotify)
 [![PyPI](https://img.shields.io/pypi/v/splotify)](https://pypi.org/project/splotify/)
-[![Docs](https://img.shields.io/readthedocs/splotify)](https://splotify.readthedocs.io/en/latest/)
+
+## Documentation
+
+Github Pages: [![Docs](https://img.shields.io/badge/Github-Pages-brightgreen)](https://cordeliachen.github.io/splotify/)
+Read the Docs: [![Read the Docs](https://img.shields.io/readthedocs/splotify)](https://splotify.readthedocs.io/en/latest/)
 
 ## Tutorial
 
