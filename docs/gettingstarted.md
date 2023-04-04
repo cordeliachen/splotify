@@ -17,7 +17,6 @@ Install the library by running:
 ## Usage
 
 1. First, you need to get your `SPOTIPY_CLIENT_ID`, `SPOTIPY_CLIENT_SECRET`, and redirect uri. [Here](https://www.youtube.com/watch?v=3RGm4jALukM) is a video created by Spotipy that explains how to do so. 
-![](https://github.com/cordeliachen/splotify/blob/docs/examples/splotifydemo.gif)
 
 2. Declare a [SpotifyApi](source/splotify.html#splotify.spotifyapi.SpotifyApi) object that allows you to access data from Spotify.
 
