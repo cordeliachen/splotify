@@ -2,11 +2,11 @@
 
 Splotify is a python library for easily graphing and visualizing your Spotify data.
 
-[![Build Status](https://github.com/cordeliachen/splotify/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/cordeliachen/splotify/actions?query=workflow%3A%22Build+Status%22)
-[![codecov](https://codecov.io/gh/cordeliachen/splotify/branch/main/graph/badge.svg)](https://codecov.io/gh/cordeliachen/splotify)
+[![](https://github.com/cordeliachen/splotify/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/cordeliachen/splotify/actions?query=workflow%3A%22Build+Status%22)
+[![](https://codecov.io/gh/cordeliachen/splotify/branch/main/graph/badge.svg)](https://codecov.io/gh/cordeliachen/splotify)
 ![](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![](https://img.shields.io/github/issues/cordeliachen/splotify)
-[![PyPI](https://img.shields.io/pypi/v/splotify)](https://pypi.org/project/splotify/)
+[![](https://img.shields.io/pypi/v/splotify)](https://pypi.org/project/splotify/)
 
 ## Installation
 
@@ -16,7 +16,7 @@ Install the library by running:
 
 ## Usage
 
-1. First, you need to get your `SPOTIPY_CLIENT_ID`, `SPOTIPY_CLIENT_SECRET`, and redirect uri. [Here](https://www.youtube.com/watch?v=3RGm4jALukM) is a video created by Spotipy that explains how to do so. ![](https://github.com/cordeliachen/splotify/blob/docs/examples/splotifydemo.gif)
+1. First, you need to get your `SPOTIPY_CLIENT_ID`, `SPOTIPY_CLIENT_SECRET`, and redirect uri. [Here](https://www.youtube.com/watch?v=3RGm4jALukM) is a video created by Spotipy that explains how to do so. 
 
 2. Declare a [SpotifyApi](source/splotify.html#splotify.spotifyapi.SpotifyApi) object that allows you to access data from Spotify.
 
