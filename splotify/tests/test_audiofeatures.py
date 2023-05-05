@@ -1,5 +1,7 @@
 from splotify.plots import audiofeatures
 from splotify.tests import sp
+from splotify.data import Data
+import unittest.mock as mock
 import pytest
 import os
 
@@ -11,9 +13,11 @@ def vcr_cassette_dir(request):
 
 @pytest.fixture
 def afp(track_data):
-    return audiofeatures.AudioFeaturesPlot(
-        sp, track_data, ["loudness", "danceability", "energy"]
-    )
+    with mock.patch("splotify.data.Data.get_data") as get_data:
+        get_data.return_value = track_data
+        yield audiofeatures.AudioFeaturesPlot(
+            sp, Data(sp), ["loudness", "danceability", "energy"]
+        )
 
 
 @pytest.mark.vcr()

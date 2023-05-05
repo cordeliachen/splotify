@@ -22,8 +22,8 @@ class CategoryPlot:
 
     """
 
-    def __init__(self, tracks):
-        self.df = tracks
+    def __init__(self, data):
+        self.df = data.get_data()
 
     def bar_chart(self, groupby="album"):
         """Plots the grouped tracks in a bar chart.

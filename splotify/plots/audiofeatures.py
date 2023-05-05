@@ -1,5 +1,3 @@
-# TODO: call Data.get_data() during __init__.
-
 """`AudioFeaturesPlot` class.
 
 This module contains the `AudioFeaturesPlot` class that plots the audio
@@ -37,16 +35,15 @@ class AudioFeaturesPlot:
 
     Args:
         sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
-        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by
-            from calling Data.get_data()
+        data (splotify.data.Data): A `Data` instance
         features(:obj:`list` of :obj:`str`): The list of audio features
             that you want to plot. If len(features) > 3, only the first 3
             features in the list will be selected.
 
     """
 
-    def __init__(self, sp, tracks, features):
-        self.df = tracks
+    def __init__(self, sp, data, features):
+        self.df = data.get_data()
         self.sp = sp
         self.add_features()
         self.select_features(features)

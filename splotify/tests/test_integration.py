@@ -20,9 +20,7 @@ def test_integration():
 
     d.add_albums([id1, id2])
 
-    afp = audiofeatures.AudioFeaturesPlot(
-        sp, d.get_data(), ["loudness", "danceability"]
-    )
+    afp = audiofeatures.AudioFeaturesPlot(sp, d, ["loudness", "danceability"])
 
     fig = afp.scatter_plot_2d(color="album")
 
