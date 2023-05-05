@@ -17,8 +17,7 @@ class CategoryPlot:
     playlists (i.e. how many songs are from each album/artist).
 
     Args:
-        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by
-            from calling Data.get_data()
+        data (splotify.data.Data): A `Data` instance.
 
     """
 

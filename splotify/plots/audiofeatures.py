@@ -35,7 +35,7 @@ class AudioFeaturesPlot:
 
     Args:
         sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.
-        data (splotify.data.Data): A `Data` instance
+        data (splotify.data.Data): A `Data` instance.
         features(:obj:`list` of :obj:`str`): The list of audio features
             that you want to plot. If len(features) > 3, only the first 3
             features in the list will be selected.
