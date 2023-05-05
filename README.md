@@ -45,6 +45,7 @@ import splotify.spotifyapi as spotifyapi
 import splotify.data as data
 import splotify.plots.audiofeatures as af
 import splotify.plots.category as c
+import splotify.plots.popularity as p
 
 sp = spotifyapi.SpotifyApi(
     "YOUR SPOTIPY_CLIENT_ID",
