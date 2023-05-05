@@ -11,7 +11,7 @@ name = "Splotify"
 authors = [{name = "Cordelia Chen", email = "liachen2002@gmail.com"}]
 description="A python library for easily graphing and visualizing your Spotify data."
 readme = "README.md"
-version = "0.1.1"
+version = "0.1.0"
 requires-python = ">=3.7"
 
 dependencies = [
