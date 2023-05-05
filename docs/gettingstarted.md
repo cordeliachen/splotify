@@ -16,7 +16,7 @@ Install the library by running:
 
 ## Usage
 
-1. First, you need to get your `SPOTIPY_CLIENT_ID`, `SPOTIPY_CLIENT_SECRET`, and redirect uri. [Here](https://www.youtube.com/watch?v=3RGm4jALukM) is a video created by Spotipy that explains how to do so. 
+1. First, you need to get your `SPOTIPY_CLIENT_ID`, `SPOTIPY_CLIENT_SECRET`, and redirect uri. [Here](https://www.youtube.com/watch?v=3RGm4jALukM) is a video created by Spotipy that explains how to do so.
 
 2. Declare a [SpotifyApi](source/splotify.html#splotify.spotifyapi.SpotifyApi) object that allows you to access data from Spotify.
 
@@ -49,7 +49,7 @@ d = data.Data(sp)
 d.add_playlist("37i9dQZF1DZ06evO2VxlyE")
 
 # view data about the tracks' audio features
-afp = af.AudioFeaturesPlot(sp, d.get_data(), ["energy", "loudness"])
+afp = af.AudioFeaturesPlot(sp, d, ["energy", "loudness"])
 
 # scatter plot of energy vs. loudness of the tracks in the playlist
 afp.scatter_plot_2d(color="album")
@@ -57,11 +57,17 @@ afp.scatter_plot_2d(color="album")
 # box plot of the tracks' energy values, grouped by album
 afp.box_plot(["energy"], groupby="album")
 
-
-cp = c.CategoryPlot(d.get_data())
+# view data about the tracks' categories
+cp = c.CategoryPlot(d)
 
 # pie chart of albums in the playlist
 cp.pie_chart()
+
+# view data about popularity
+pp = p.PopularityPlot(sp, d)
+
+# bar chart of the popularity of albums in the playlist
+pp.album_bar_chart()
 
 ```
 
@@ -69,3 +75,4 @@ This code produces the following plots:
 ![](../examples/radiohead_scatter_plot.png)
 ![](../examples/radiohead_box_plot.png)
 ![](../examples/radiohead_pie_chart.png)
+![](/examples/radiohead_album_box_plot.png)
