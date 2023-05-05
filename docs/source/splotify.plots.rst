@@ -20,6 +20,14 @@ splotify.plots.category module
    :undoc-members:
    :show-inheritance:
 
+splotify.plots.popularity module
+--------------------------------
+
+.. automodule:: splotify.plots.popularity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

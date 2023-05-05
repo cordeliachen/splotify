@@ -52,6 +52,14 @@ splotify.tests.test\_integration module
    :undoc-members:
    :show-inheritance:
 
+splotify.tests.test\_popularity module
+--------------------------------------
+
+.. automodule:: splotify.tests.test_popularity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
