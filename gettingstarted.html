@@ -112,6 +112,7 @@
 <span class="kn">import</span> <span class="nn">splotify.data</span> <span class="k">as</span> <span class="nn">data</span>
 <span class="kn">import</span> <span class="nn">splotify.plots.audiofeatures</span> <span class="k">as</span> <span class="nn">af</span>
 <span class="kn">import</span> <span class="nn">splotify.plots.category</span> <span class="k">as</span> <span class="nn">c</span>
+<span class="kn">import</span> <span class="nn">splotify.plots.popularity</span> <span class="k">as</span> <span class="nn">p</span>
 
 <span class="n">sp</span> <span class="o">=</span> <span class="n">spotifyapi</span><span class="o">.</span><span class="n">SpotifyApi</span><span class="p">(</span>
     <span class="s2">&quot;YOUR SPOTIPY_CLIENT_ID&quot;</span><span class="p">,</span>
@@ -125,7 +126,7 @@
 <span class="n">d</span><span class="o">.</span><span class="n">add_playlist</span><span class="p">(</span><span class="s2">&quot;37i9dQZF1DZ06evO2VxlyE&quot;</span><span class="p">)</span>
 
 <span class="c1"># view data about the tracks&#39; audio features</span>
-<span class="n">afp</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;loudness&quot;</span><span class="p">])</span>
+<span class="n">afp</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;loudness&quot;</span><span class="p">])</span>
 
 <span class="c1"># scatter plot of energy vs. loudness of the tracks in the playlist</span>
 <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_2d</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">)</span>
@@ -133,17 +134,24 @@
 <span class="c1"># box plot of the tracks&#39; energy values, grouped by album</span>
 <span class="n">afp</span><span class="o">.</span><span class="n">box_plot</span><span class="p">([</span><span class="s2">&quot;energy&quot;</span><span class="p">],</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">)</span>
 
-
-<span class="n">cp</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
+<span class="c1"># view data about the tracks&#39; categories</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
 <span class="c1"># pie chart of albums in the playlist</span>
 <span class="n">cp</span><span class="o">.</span><span class="n">pie_chart</span><span class="p">()</span>
+
+<span class="c1"># view data about popularity</span>
+<span class="n">pp</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">PopularityPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+
+<span class="c1"># bar chart of the popularity of albums in the playlist</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">album_bar_chart</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>This code produces the following plots:
 <img alt="_images/radiohead_scatter_plot.png" src="_images/radiohead_scatter_plot.png" />
 <img alt="_images/radiohead_box_plot.png" src="_images/radiohead_box_plot.png" />
-<img alt="_images/radiohead_pie_chart.png" src="_images/radiohead_pie_chart.png" /></p>
+<img alt="_images/radiohead_pie_chart.png" src="_images/radiohead_pie_chart.png" />
+<img alt="examples/radiohead_album_box_plot.png" src="examples/radiohead_album_box_plot.png" /></p>
 </section>
 </section>
 

@@ -1,6 +1,7 @@
 {
   "cells": [
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "zSauVkB-7rx8"
@@ -18,6 +19,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "uTjxxP0e7TNw"
@@ -27,6 +29,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "CtvEUqTp7eZy"
@@ -77,6 +80,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "xnQ8vcxu7lwD"
@@ -86,6 +90,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "UnwXlFOf8EO2"
@@ -95,6 +100,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "-8OkJJ7o_50r"
@@ -129,6 +135,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "D8fb15cJ8v8a"
@@ -138,6 +145,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "KpjxX2z8ErZn"
@@ -228,6 +236,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "4tH--9QOI2-j"
@@ -237,6 +246,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "rDYtrDvYExYX"
@@ -246,6 +256,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "ECXMF4L-JCAt"
@@ -288,6 +299,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "2U5k8RDhAhf8"
@@ -306,13 +318,14 @@
       "source": [
         "import splotify.plots.audiofeatures as af\n",
         "\n",
-        "afp = af.AudioFeaturesPlot(sp, d.get_data(), [\"energy\", \"loudness\"])\n",
+        "afp = af.AudioFeaturesPlot(sp, d, [\"energy\", \"loudness\"])\n",
         "\n",
         "# plot a simple scatter plot of the data by their energy and loudness features\n",
         "plt = afp.scatter_plot_2d()"
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "2dRp3k8-24Ue"
@@ -322,6 +335,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "owTsIHl_1jVk"
@@ -346,6 +360,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "fIN9FyKR2y6q"
@@ -355,6 +370,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "E7EyaMSk21JX"
@@ -377,6 +393,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "JRU_fAb52n3e"
@@ -386,6 +403,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "mjitO-fx2qj3"
@@ -395,6 +413,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "QcWBDFXp2sib"
@@ -417,6 +436,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "t1pB2BJw2Vkx"
@@ -426,6 +446,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "3BC-LWLQ2C3h"
@@ -435,6 +456,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "w6GR93232Ev3"
@@ -456,6 +478,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "kM1Ob2dd2L0Y"
@@ -465,6 +488,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "nImoxJmx13YN"
@@ -474,6 +498,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "i4Alg74Q158P"
@@ -483,6 +508,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "_qZQNx4vAqDR"
@@ -501,13 +527,14 @@
       "source": [
         "import splotify.plots.category as c\n",
         "\n",
-        "cp = c.CategoryPlot(d.get_data())\n",
+        "cp = c.CategoryPlot(d)\n",
         "\n",
         "plt = cp.bar_chart(groupby=\"artist\")\n",
         "plt = cp.pie_chart(groupby=\"artist\")"
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "nFG80hIV2PV4"
@@ -517,6 +544,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "Ls-heaJI1pU1"
@@ -526,6 +554,7 @@
       ]
     },
     {
+      "attachments": {},
       "cell_type": "markdown",
       "metadata": {
         "id": "-tkk7Wo41rXj"

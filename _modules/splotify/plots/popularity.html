@@ -124,7 +124,8 @@
         <span class="k">return</span> <span class="n">fig</span></div>
 
 <div class="viewcode-block" id="PopularityPlot.album_bar_chart"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.popularity.PopularityPlot.album_bar_chart">[docs]</a>    <span class="k">def</span> <span class="nf">album_bar_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the popularity of albums present in a group of tracks in a bar chart.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the popularity of albums present in a group of tracks in a bar</span>
+<span class="sd">        chart.&quot;&quot;&quot;</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;uri&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Adding album popularity&quot;</span><span class="p">):</span>

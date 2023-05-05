@@ -296,7 +296,7 @@ Queen                                                      Spotify             s
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">splotify.plots.audiofeatures</span> <span class="k">as</span> <span class="nn">af</span>
 
-<span class="n">afp</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;loudness&quot;</span><span class="p">])</span>
+<span class="n">afp</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;loudness&quot;</span><span class="p">])</span>
 
 <span class="c1"># plot a simple scatter plot of the data by their energy and loudness features</span>
 <span class="n">plt</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_2d</span><span class="p">()</span>
@@ -376,7 +376,7 @@ Queen                                                      Spotify             s
 </div>
 <div class="input_area highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">splotify.plots.category</span> <span class="k">as</span> <span class="nn">c</span>
 
-<span class="n">cp</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
 <span class="n">plt</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">bar_chart</span><span class="p">(</span><span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 <span class="n">plt</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">pie_chart</span><span class="p">(</span><span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
