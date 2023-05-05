@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>splotify.tests.test_integration &mdash; Splotify 0.1.0 documentation</title>
+  <title>splotify.tests.test_popularity &mdash; Splotify 0.1.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -64,7 +64,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">splotify.tests.test_integration</li>
+      <li class="breadcrumb-item active">splotify.tests.test_popularity</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -73,32 +73,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for splotify.tests.test_integration</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">splotify</span> <span class="kn">import</span> <span class="n">data</span>
-<span class="kn">from</span> <span class="nn">splotify.plots</span> <span class="kn">import</span> <span class="n">audiofeatures</span>
-<span class="kn">from</span> <span class="nn">splotify</span> <span class="kn">import</span> <span class="n">helpers</span>
+  <h1>Source code for splotify.tests.test_popularity</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">splotify.plots</span> <span class="kn">import</span> <span class="n">popularity</span>
 <span class="kn">from</span> <span class="nn">splotify.tests</span> <span class="kn">import</span> <span class="n">sp</span>
+<span class="kn">from</span> <span class="nn">splotify.data</span> <span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">import</span> <span class="nn">unittest.mock</span> <span class="k">as</span> <span class="nn">mock</span>
 <span class="kn">import</span> <span class="nn">pytest</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="vcr_cassette_dir"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_integration.vcr_cassette_dir">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="vcr_cassette_dir"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_popularity.vcr_cassette_dir">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">vcr_cassette_dir</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;splotify/tests/cassettes&quot;</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="test_integration"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_integration.test_integration">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">test_integration</span><span class="p">():</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<div class="viewcode-block" id="pp"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_popularity.pp">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">pp</span><span class="p">(</span><span class="n">track_data</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;splotify.data.Data.get_data&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">get_data</span><span class="p">:</span>
+        <span class="n">get_data</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">track_data</span>
+        <span class="k">yield</span> <span class="n">popularity</span><span class="o">.</span><span class="n">PopularityPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">Data</span><span class="p">(</span><span class="n">sp</span><span class="p">))</span></div>
 
-    <span class="n">id1</span> <span class="o">=</span> <span class="s2">&quot;spotify:album:7iLuHJkrb9KHPkMgddYigh&quot;</span>
-    <span class="n">id2</span> <span class="o">=</span> <span class="n">helpers</span><span class="o">.</span><span class="n">search_id</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="s2">&quot;OK Computer&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
 
-    <span class="n">d</span><span class="o">.</span><span class="n">add_albums</span><span class="p">([</span><span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">])</span>
+<div class="viewcode-block" id="test_track_bar_chart"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_popularity.test_track_bar_chart">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">test_track_bar_chart</span><span class="p">(</span><span class="n">pp</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">track_bar_chart</span><span class="p">()</span>
 
-    <span class="n">afp</span> <span class="o">=</span> <span class="n">audiofeatures</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;loudness&quot;</span><span class="p">,</span> <span class="s2">&quot;danceability&quot;</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">afp</span><span class="o">.</span><span class="n">scatter_plot_2d</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="test_album_bar_chart"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_popularity.test_album_bar_chart">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">test_album_bar_chart</span><span class="p">(</span><span class="n">pp</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">album_bar_chart</span><span class="p">()</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 </pre></div>

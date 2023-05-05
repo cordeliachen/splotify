@@ -54,6 +54,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots.audiofeatures">splotify.plots.audiofeatures module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots.category">splotify.plots.category module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots.popularity">splotify.plots.popularity module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-splotify.plots">Module contents</a></li>
 </ul>
 </li>
@@ -88,6 +89,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#splotify.plots.category.CategoryPlot"><code class="docutils literal notranslate"><span class="pre">CategoryPlot</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#splotify.plots.category.CategoryPlot.bar_chart"><code class="docutils literal notranslate"><span class="pre">CategoryPlot.bar_chart()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#splotify.plots.category.CategoryPlot.pie_chart"><code class="docutils literal notranslate"><span class="pre">CategoryPlot.pie_chart()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-splotify.plots.popularity">splotify.plots.popularity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#splotify.plots.popularity.PopularityPlot"><code class="docutils literal notranslate"><span class="pre">PopularityPlot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.popularity.PopularityPlot.album_bar_chart"><code class="docutils literal notranslate"><span class="pre">PopularityPlot.album_bar_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#splotify.plots.popularity.PopularityPlot.track_bar_chart"><code class="docutils literal notranslate"><span class="pre">PopularityPlot.track_bar_chart()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -134,7 +143,7 @@
 features of your selected tracks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="splotify.plots.audiofeatures.AudioFeaturesPlot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.audiofeatures.</span></span><span class="sig-name descname"><span class="pre">AudioFeaturesPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.audiofeatures.</span></span><span class="sig-name descname"><span class="pre">AudioFeaturesPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/audiofeatures.html#AudioFeaturesPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.audiofeatures.AudioFeaturesPlot" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object to plot the audio features of a group of tracks.</p>
 <p>Supports 2D and 3D scatter plots, histograms, and box plots. The supported
@@ -157,8 +166,7 @@ features are:</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sp</strong> (<a class="reference internal" href="splotify.html#splotify.spotifyapi.SpotifyApi" title="splotify.spotifyapi.SpotifyApi"><em>splotify.spotifyapi.SpotifyApi</em></a>) – A <cite>SpotifyApi</cite> instance.</p></li>
-<li><p><strong>tracks</strong> (<em>pandas.DataFrame</em>) – A Pandas Dataframe, preferably obtained by
-from calling Data.get_data()</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="splotify.html#splotify.data.Data" title="splotify.data.Data"><em>splotify.data.Data</em></a>) – A <cite>Data</cite> instance.</p></li>
 <li><p><strong>features</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – The list of audio features
 that you want to plot. If len(features) &gt; 3, only the first 3
 features in the list will be selected.</p></li>
@@ -291,15 +299,14 @@ features in the list will be selected.</p>
 selected tracks.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="splotify.plots.category.CategoryPlot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.category.</span></span><span class="sig-name descname"><span class="pre">CategoryPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/category.html#CategoryPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.category.CategoryPlot" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.category.</span></span><span class="sig-name descname"><span class="pre">CategoryPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/category.html#CategoryPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.category.CategoryPlot" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object to plot the categories of a group of tracks.</p>
 <p>Supports bar charts and pie charts. Good for looking at the composition of
 playlists (i.e. how many songs are from each album/artist).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tracks</strong> (<em>pandas.DataFrame</em>) – A Pandas Dataframe, preferably obtained by
-from calling Data.get_data()</p>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference internal" href="splotify.html#splotify.data.Data" title="splotify.data.Data"><em>splotify.data.Data</em></a>) – A <cite>Data</cite> instance.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -328,6 +335,41 @@ number of tracks of each group, and plots the counts.</p>
 supports ‘artist’ and ‘album’. Defaults to ‘album’.</p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-splotify.plots.popularity">
+<span id="splotify-plots-popularity-module"></span><h2>splotify.plots.popularity module<a class="headerlink" href="#module-splotify.plots.popularity" title="Permalink to this heading"></a></h2>
+<p><cite>PopularityPlot</cite> class.</p>
+<p>This module contains the <cite>PopularityPlot</cite> class that plots the popularity of your
+selected tracks.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="splotify.plots.popularity.PopularityPlot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">splotify.plots.popularity.</span></span><span class="sig-name descname"><span class="pre">PopularityPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/popularity.html#PopularityPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.popularity.PopularityPlot" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object to plot the popularity of a group of tracks.</p>
+<p>Supports bar charts. Based on Spotify’s <cite>popularity</cite> variable for <a class="reference external" href="https://developer.spotify.com/documentation/web-api/reference/get-track">tracks</a>
+and <a class="reference external" href="https://developer.spotify.com/documentation/web-api/reference/get-an-album">albums</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sp</strong> (<a class="reference internal" href="splotify.html#splotify.spotifyapi.SpotifyApi" title="splotify.spotifyapi.SpotifyApi"><em>splotify.spotifyapi.SpotifyApi</em></a>) – A <cite>SpotifyApi</cite> instance.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="splotify.html#splotify.data.Data" title="splotify.data.Data"><em>splotify.data.Data</em></a>) – A <cite>Data</cite> instance.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.popularity.PopularityPlot.album_bar_chart">
+<span class="sig-name descname"><span class="pre">album_bar_chart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/popularity.html#PopularityPlot.album_bar_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.popularity.PopularityPlot.album_bar_chart" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the popularity of albums present in a group of tracks in a bar chart.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="splotify.plots.popularity.PopularityPlot.track_bar_chart">
+<span class="sig-name descname"><span class="pre">track_bar_chart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/splotify/plots/popularity.html#PopularityPlot.track_bar_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#splotify.plots.popularity.PopularityPlot.track_bar_chart" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the popularity of tracks in a bar chart.</p>
 </dd></dl>
 
 </dd></dl>

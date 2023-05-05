@@ -74,9 +74,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for splotify.plots.audiofeatures</h1><div class="highlight"><pre>
-<span></span><span class="c1"># TODO: call Data.get_data() during __init__.</span>
-
-<span class="sd">&quot;&quot;&quot;`AudioFeaturesPlot` class.</span>
+<span></span><span class="sd">&quot;&quot;&quot;`AudioFeaturesPlot` class.</span>
 
 <span class="sd">This module contains the `AudioFeaturesPlot` class that plots the audio</span>
 <span class="sd">features of your selected tracks.</span>
@@ -113,16 +111,15 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        sp (splotify.spotifyapi.SpotifyApi): A `SpotifyApi` instance.</span>
-<span class="sd">        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by</span>
-<span class="sd">            from calling Data.get_data()</span>
+<span class="sd">        data (splotify.data.Data): A `Data` instance.</span>
 <span class="sd">        features(:obj:`list` of :obj:`str`): The list of audio features</span>
 <span class="sd">            that you want to plot. If len(features) &gt; 3, only the first 3</span>
 <span class="sd">            features in the list will be selected.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">tracks</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">features</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">=</span> <span class="n">sp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_features</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">select_features</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>

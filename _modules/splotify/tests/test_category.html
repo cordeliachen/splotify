@@ -75,19 +75,26 @@
              
   <h1>Source code for splotify.tests.test_category</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">splotify.plots</span> <span class="kn">import</span> <span class="n">category</span>
+<span class="kn">from</span> <span class="nn">splotify.data</span> <span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">from</span> <span class="nn">splotify.tests</span> <span class="kn">import</span> <span class="n">sp</span>
+<span class="kn">import</span> <span class="nn">unittest.mock</span> <span class="k">as</span> <span class="nn">mock</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
 
 
-<div class="viewcode-block" id="test_bar_chart"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_category.test_bar_chart">[docs]</a><span class="k">def</span> <span class="nf">test_bar_chart</span><span class="p">(</span><span class="n">track_data</span><span class="p">):</span>
-    <span class="n">cp</span> <span class="o">=</span> <span class="n">category</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">track_data</span><span class="p">)</span>
+<div class="viewcode-block" id="cp"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_category.cp">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">cp</span><span class="p">(</span><span class="n">track_data</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;splotify.data.Data.get_data&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">get_data</span><span class="p">:</span>
+        <span class="n">get_data</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">track_data</span>
+        <span class="k">yield</span> <span class="n">category</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">Data</span><span class="p">(</span><span class="n">sp</span><span class="p">))</span></div>
 
+
+<div class="viewcode-block" id="test_bar_chart"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_category.test_bar_chart">[docs]</a><span class="k">def</span> <span class="nf">test_bar_chart</span><span class="p">(</span><span class="n">cp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">bar_chart</span><span class="p">(</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="test_pie_chart"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_category.test_pie_chart">[docs]</a><span class="k">def</span> <span class="nf">test_pie_chart</span><span class="p">(</span><span class="n">track_data</span><span class="p">):</span>
-    <span class="n">cp</span> <span class="o">=</span> <span class="n">category</span><span class="o">.</span><span class="n">CategoryPlot</span><span class="p">(</span><span class="n">track_data</span><span class="p">)</span>
-
+<div class="viewcode-block" id="test_pie_chart"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_category.test_pie_chart">[docs]</a><span class="k">def</span> <span class="nf">test_pie_chart</span><span class="p">(</span><span class="n">cp</span><span class="p">):</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">pie_chart</span><span class="p">(</span><span class="s2">&quot;artist&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>

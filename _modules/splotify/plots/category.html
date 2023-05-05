@@ -93,13 +93,12 @@
 <span class="sd">    playlists (i.e. how many songs are from each album/artist).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        tracks (pandas.DataFrame): A Pandas Dataframe, preferably obtained by</span>
-<span class="sd">            from calling Data.get_data()</span>
+<span class="sd">        data (splotify.data.Data): A `Data` instance.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tracks</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">tracks</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
 
 <div class="viewcode-block" id="CategoryPlot.bar_chart"><a class="viewcode-back" href="../../../source/splotify.plots.html#splotify.plots.category.CategoryPlot.bar_chart">[docs]</a>    <span class="k">def</span> <span class="nf">bar_chart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;album&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Plots the grouped tracks in a bar chart.</span>

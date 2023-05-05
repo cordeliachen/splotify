@@ -76,6 +76,8 @@
   <h1>Source code for splotify.tests.test_audiofeatures</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">splotify.plots</span> <span class="kn">import</span> <span class="n">audiofeatures</span>
 <span class="kn">from</span> <span class="nn">splotify.tests</span> <span class="kn">import</span> <span class="n">sp</span>
+<span class="kn">from</span> <span class="nn">splotify.data</span> <span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">import</span> <span class="nn">unittest.mock</span> <span class="k">as</span> <span class="nn">mock</span>
 <span class="kn">import</span> <span class="nn">pytest</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -87,9 +89,11 @@
 
 <div class="viewcode-block" id="afp"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.afp">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span> <span class="nf">afp</span><span class="p">(</span><span class="n">track_data</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">audiofeatures</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span>
-        <span class="n">sp</span><span class="p">,</span> <span class="n">track_data</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;loudness&quot;</span><span class="p">,</span> <span class="s2">&quot;danceability&quot;</span><span class="p">,</span> <span class="s2">&quot;energy&quot;</span><span class="p">]</span>
-    <span class="p">)</span></div>
+    <span class="k">with</span> <span class="n">mock</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;splotify.data.Data.get_data&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">get_data</span><span class="p">:</span>
+        <span class="n">get_data</span><span class="o">.</span><span class="n">return_value</span> <span class="o">=</span> <span class="n">track_data</span>
+        <span class="k">yield</span> <span class="n">audiofeatures</span><span class="o">.</span><span class="n">AudioFeaturesPlot</span><span class="p">(</span>
+            <span class="n">sp</span><span class="p">,</span> <span class="n">Data</span><span class="p">(</span><span class="n">sp</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;loudness&quot;</span><span class="p">,</span> <span class="s2">&quot;danceability&quot;</span><span class="p">,</span> <span class="s2">&quot;energy&quot;</span><span class="p">]</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="test_select_features"><a class="viewcode-back" href="../../../source/splotify.tests.html#splotify.tests.test_audiofeatures.test_select_features">[docs]</a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">vcr</span><span class="p">()</span>
