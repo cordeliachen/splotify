@@ -48,7 +48,8 @@ class PopularityPlot:
         return fig
 
     def album_bar_chart(self):
-        """Plots the popularity of albums present in a group of tracks in a bar chart."""
+        """Plots the popularity of albums present in a group of tracks in a bar
+        chart."""
 
         data = []
         for id in tqdm(self.df["uri"].values, desc="Adding album popularity"):
