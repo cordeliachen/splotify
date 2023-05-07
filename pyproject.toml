@@ -53,6 +53,7 @@ develop = [
     "pytest-mock>=3.10.0",
     "pytest-vcr>=1.0.2",
     "twine",
+    "urllib3==1.26.15",
     "wheel",
 ]
 
