@@ -76,4 +76,4 @@ This code produces the following plots:
 ![](../examples/radiohead_scatter_plot.png)
 ![](../examples/radiohead_box_plot.png)
 ![](../examples/radiohead_pie_chart.png)
-![](/examples/radiohead_album_box_plot.png)
+![](../examples/radiohead_album_box_plot.png)
